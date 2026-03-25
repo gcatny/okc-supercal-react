@@ -35,9 +35,16 @@ import happyHoursData from './data/happyHours.json';
 export default function App() {
   // Build the full events list (base events + generated HH events)
   const allEventsRaw = useMemo(() => {
-    const base = [...eventsData];
-    const hhEvents = generateHappyHourEvents(happyHoursData, HH_DISTRICT_MAP);
-    return [...base, ...hhEvents].sort((a, b) => a.date < b.date ? -1 : 1);
+    try {
+      const base = Array.isArray(eventsData) ? [...eventsData] : [];
+      const hhEvents = generateHappyHourEvents(happyHoursData, HH_DISTRICT_MAP);
+      return [...base, ...hhEvents]
+        .filter(ev => ev && ev.date && ev.name)
+        .sort((a, b) => (a.date || '') < (b.date || '') ? -1 : 1);
+    } catch (err) {
+      console.error('Error building events list:', err);
+      return Array.isArray(eventsData) ? [...eventsData] : [];
+    }
   }, []);
 
   // Hooks
