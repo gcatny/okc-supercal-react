@@ -6,7 +6,8 @@ import { getTodayStr, formatDateStr } from "./dateUtils.js";
  * @param {Set} activeFilters - set of category strings
  */
 export function catMatch(event, activeFilters) {
-  return activeFilters.has(event.cat) || activeFilters.has(event.cat2);
+  if (!event || !activeFilters) return false;
+  return activeFilters.has(event.cat) || (event.cat2 && activeFilters.has(event.cat2));
 }
 
 /**
@@ -17,6 +18,7 @@ export function catMatch(event, activeFilters) {
  * @param {boolean} hhRoof - filter for rooftop happy hours
  */
 export function passesHHFilter(event, hhOn, hhPatio, hhRoof) {
+  if (!event) return false;
   if (event.cat !== "happyhour") return true;
   if (!hhOn) return false;
   if (hhPatio && !event.patio) return false;
@@ -46,58 +48,57 @@ export function matchesSearch(event, query) {
  * @param {object} hhDistMap - map of venue names to districts
  */
 export function generateHappyHourEvents(hhData, hhDistMap) {
+  if (!Array.isArray(hhData)) return [];
   const events = [];
-  const today = new Date();
-  const endDate = new Date(today.getTime() + 90 * 24 * 60 * 60 * 1000);
+  const now = new Date();
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const endDate = new Date(todayStart.getTime() + 90 * 24 * 60 * 60 * 1000);
+  const DOW_NAMES = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 
   const seen = new Set();
 
-  for (let hhVenue of hhData) {
-    const { n: name, v: venue, d: days, t: time, desc, url, patio, rooftop } =
-      hhVenue;
+  for (const hh of hhData) {
+    if (!hh || !hh.n || !hh.v) continue; // skip malformed entries
+    const name = hh.n;
+    const venue = hh.v;
+    const days = Array.isArray(hh.d) ? hh.d : [0, 1, 2, 3, 4]; // default Mon-Fri
+    const time = hh.t || "Varies";
+    const daysLabel = days.length >= 7 ? "Daily" :
+      (days.length === 5 && !days.includes(5) && !days.includes(6)) ? "Mon–Fri" :
+      days.map(d => DOW_NAMES[d]).join(", ");
 
-    // Iterate through each day in the 90-day range
-    for (
-      let current = new Date(today);
-      current < endDate;
-      current.setDate(current.getDate() + 1)
-    ) {
-      // JS getDay: 0=Sun, 1=Mon, ..., 6=Sat
-      // HH format: 0=Mon, 1=Tue, ..., 6=Sun
-      const jsDay = current.getDay();
+    // Walk each day in range
+    const cur = new Date(todayStart.getTime());
+    while (cur <= endDate) {
+      // Convert JS getDay (0=Sun) to HH format (0=Mon)
+      const jsDay = cur.getDay();
       const hhDay = jsDay === 0 ? 6 : jsDay - 1;
 
-      // Check if this day matches the HH venue's days array
-      if (!days.includes(hhDay)) continue;
+      if (days.includes(hhDay)) {
+        const dateStr = formatDateStr(cur);
+        const eventKey = `${name}|${dateStr}`;
 
-      const dateStr = formatDateStr(new Date(current));
-      const eventKey = `${name}|${dateStr}`;
+        if (!seen.has(eventKey)) {
+          seen.add(eventKey);
 
-      // Deduplicate
-      if (seen.has(eventKey)) continue;
-      seen.add(eventKey);
-
-      const event = {
-        name,
-        venue,
-        date: dateStr,
-        desc,
-        cat: "happyhour",
-        confirmed: true,
-        source: "OKC Restaurant Happy Hours",
-        tickets: url ? url : undefined,
-        free: false,
-        patio,
-        rooftop
-      };
-
-      // Auto-assign district
-      const district = hhDistMap[venue];
-      if (district) {
-        event.district = district;
+          const dist = hhDistMap[venue] || venue || "";
+          events.push({
+            name,
+            venue: venue + ", OKC",
+            date: dateStr,
+            desc: hh.desc || (name + " happy hour. " + daysLabel + " " + time),
+            cat: "happyhour",
+            confirmed: true,
+            source: "OKC Restaurant Happy Hours",
+            tickets: hh.url || null,
+            free: false,
+            district: dist,
+            patio: !!hh.patio,
+            rooftop: !!hh.rooftop
+          });
+        }
       }
-
-      events.push(event);
+      cur.setDate(cur.getDate() + 1);
     }
   }
 
