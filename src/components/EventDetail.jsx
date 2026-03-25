@@ -1,8 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { CATEGORY_LABELS, CATEGORY_COLORS } from '../data/categories';
 import { buildGCalUrl, voteKey } from '../utils/eventUtils';
 
 export default function EventDetail({ event, onClose, onVote, voteCount, hasVoted }) {
+  const detailRef = useRef(null);
+
+  // Scroll the detail card into view when it appears or the event changes
+  useEffect(() => {
+    if (event && detailRef.current) {
+      detailRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }, [event]);
+
   if (!event) return null;
 
   const gCalUrl = buildGCalUrl(event);
@@ -11,7 +20,7 @@ export default function EventDetail({ event, onClose, onVote, voteCount, hasVote
   const label = CATEGORY_LABELS[event.cat] || event.cat;
 
   return (
-    <div className="detail open">
+    <div className="detail open" ref={detailRef}>
       <div className="dtop">
         <div>
           <span className={`dcat ${event.cat}`}>{label}</span>
@@ -33,7 +42,7 @@ export default function EventDetail({ event, onClose, onVote, voteCount, hasVote
         </a>
         {event.tickets && (
           <a href={event.tickets} target="_blank" rel="noopener noreferrer" className="tx-btn">
-            🎟️ Tickets / Info
+            🎟️ Tickets / Website
           </a>
         )}
         <button
