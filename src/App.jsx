@@ -80,16 +80,18 @@ export default function App() {
   // Search uses ALL events (not filtered)
   const search = useSearch(allEventsRaw);
 
-  // District counts — driven by filteredEvents so they react to ALL active filters
+  // District counts — react to category + HH filters, but NOT district selection
+  // (so all districts stay visible when one is clicked)
   const districtCounts = useMemo(() => {
     const counts = {};
-    filteredEvents.forEach(ev => {
-      if (ev.district) {
-        counts[ev.district] = (counts[ev.district] || 0) + 1;
-      }
+    allEventsRaw.forEach(ev => {
+      if (!ev.district) return;
+      if (!catMatch(ev, activeFilters)) return;
+      if (!passesHHFilter(ev, hhOn, hhPatio, hhRoof)) return;
+      counts[ev.district] = (counts[ev.district] || 0) + 1;
     });
     return counts;
-  }, [filteredEvents]);
+  }, [allEventsRaw, activeFilters, hhOn, hhPatio, hhRoof]);
 
   // HH counts
   const hhCounts = useMemo(() => {
