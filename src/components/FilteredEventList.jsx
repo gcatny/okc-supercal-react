@@ -11,14 +11,9 @@ export default function FilteredEventList({
 }) {
   const [shown, setShown] = useState(LIST_LIMIT);
   const allCatsOn = activeFilters.size === ALL_CATS.length;
-
-  // Only show when filters are narrowed from the default state
-  const filtersNarrowed = !allCatsOn || districtActive || !hhOn || hhPatio || hhRoof;
-  if (!filtersNarrowed) return null;
-
   const todayStr = getTodayStr();
 
-  // Build deduplicated, future-only list
+  // ALL hooks must be called before any conditional return
   const items = useMemo(() => {
     const seen = {};
     const filtered = events.filter(ev => {
@@ -32,6 +27,10 @@ export default function FilteredEventList({
     filtered.sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : a.name < b.name ? -1 : 1);
     return filtered;
   }, [events, todayStr]);
+
+  // Only show when filters are narrowed from the default state
+  const filtersNarrowed = !allCatsOn || districtActive || !hhOn || hhPatio || hhRoof;
+  if (!filtersNarrowed) return null;
 
   const visibleItems = items.slice(0, shown);
   const remaining = items.length - shown;
