@@ -18,17 +18,19 @@ export function useFilters() {
   }, []);
 
   const toggleAllCats = useCallback(() => {
-    setActiveFilters(prev => {
-      if (prev.size === ALL_CATS.length) {
-        // Deselect all: also turn off HH
-        setHhOn(false);
-        setHhPatio(false);
-        setHhRoof(false);
-        return new Set();
-      }
-      return new Set(ALL_CATS);
-    });
-  }, []);
+    if (activeFilters.size === ALL_CATS.length) {
+      // Deselect all: clear filters and turn off HH
+      setActiveFilters(new Set());
+      setHhOn(false);
+      setHhPatio(false);
+      setHhRoof(false);
+      setDistrictActive(null);
+    } else {
+      // Select all: restore filters and turn HH back on
+      setActiveFilters(new Set(ALL_CATS));
+      setHhOn(true);
+    }
+  }, [activeFilters]);
 
   const toggleDistrict = useCallback((dist) => {
     setDistrictActive(prev => prev === dist ? null : dist);
