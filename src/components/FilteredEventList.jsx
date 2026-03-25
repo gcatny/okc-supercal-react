@@ -7,13 +7,14 @@ import { buildGCalUrl } from '../utils/eventUtils';
 const LIST_LIMIT = 30;
 
 export default function FilteredEventList({
-  events, activeFilters, districtActive, hhPatio, hhRoof, onEventClick
+  events, activeFilters, districtActive, hhOn, hhPatio, hhRoof, onEventClick
 }) {
   const [shown, setShown] = useState(LIST_LIMIT);
   const allCatsOn = activeFilters.size === ALL_CATS.length;
 
-  // Only show when filters are narrowed
-  if (allCatsOn && !districtActive && !hhPatio && !hhRoof) return null;
+  // Only show when filters are narrowed from the default state
+  const filtersNarrowed = !allCatsOn || districtActive || !hhOn || hhPatio || hhRoof;
+  if (!filtersNarrowed) return null;
 
   const todayStr = getTodayStr();
 
