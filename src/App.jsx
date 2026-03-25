@@ -68,10 +68,16 @@ export default function App() {
   }, []);
 
   // Filter events based on active filters
+  // Happy hour events are controlled by the HH toggle independently of category filters
   const filteredEvents = useMemo(() => {
     return allEventsRaw.filter(ev => {
-      if (!catMatch(ev, activeFilters)) return false;
-      if (!passesHHFilter(ev, hhOn, hhPatio, hhRoof)) return false;
+      if (ev.cat === 'happyhour') {
+        // HH events bypass catMatch — they're controlled by hhOn/patio/roof
+        if (!passesHHFilter(ev, hhOn, hhPatio, hhRoof)) return false;
+      } else {
+        // Non-HH events use the normal category filter
+        if (!catMatch(ev, activeFilters)) return false;
+      }
       if (districtActive && ev.district !== districtActive) return false;
       return true;
     });
@@ -82,12 +88,17 @@ export default function App() {
 
   // District counts — react to category + HH filters, but NOT district selection
   // (so all districts stay visible when one is clicked)
+  // HH events bypass catMatch, same logic as filteredEvents
   const districtCounts = useMemo(() => {
     const counts = {};
     allEventsRaw.forEach(ev => {
       if (!ev.district) return;
-      if (!catMatch(ev, activeFilters)) return;
-      if (!passesHHFilter(ev, hhOn, hhPatio, hhRoof)) return;
+      if (ev.cat === 'happyhour') {
+        if (!passesHHFilter(ev, hhOn, hhPatio, hhRoof)) return;
+      } else {
+        if (!catMatch(ev, activeFilters)) return;
+        if (!passesHHFilter(ev, hhOn, hhPatio, hhRoof)) return;
+      }
       counts[ev.district] = (counts[ev.district] || 0) + 1;
     });
     return counts;
