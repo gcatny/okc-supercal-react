@@ -178,6 +178,14 @@ export default function App() {
               Show on Calendar
             </label>
           </div>
+          <div style={{ padding: '4px 10px 8px 12px', display: 'flex', gap: '6px' }}>
+            <button className={`hh-pill${hhPatio ? ' active' : ''}`} onClick={toggleHHPatio} style={{ fontSize: '10px', padding: '3px 8px' }}>
+              Patio <span className="hh-count">{hhCounts.patio}</span>
+            </button>
+            <button className={`hh-pill${hhRoof ? ' active' : ''}`} onClick={toggleHHRoof} style={{ fontSize: '10px', padding: '3px 8px' }}>
+              Rooftop <span className="hh-count">{hhCounts.rooftop}</span>
+            </button>
+          </div>
         </div>
         <div id="district-panel-mobile">
           <div style={{ padding: '10px 12px 8px', fontFamily: "'Bebas Neue', sans-serif", fontSize: '14px', letterSpacing: '.07em', color: 'var(--text)', borderBottom: '1px solid var(--border)' }}>Districts</div>
