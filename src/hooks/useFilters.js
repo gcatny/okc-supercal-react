@@ -18,19 +18,22 @@ export function useFilters() {
   }, []);
 
   const toggleAllCats = useCallback(() => {
-    if (activeFilters.size === ALL_CATS.length) {
-      // Deselect all: clear filters and turn off HH
+    if (activeFilters.size === ALL_CATS.length && hhOn) {
+      // Deselect all: clear category filters and turn off HH
       setActiveFilters(new Set());
       setHhOn(false);
       setHhPatio(false);
       setHhRoof(false);
       setDistrictActive(null);
     } else {
-      // Select all: restore filters and turn HH back on
+      // Select all: restore category filters, turn HH on, reset patio/roof
       setActiveFilters(new Set(ALL_CATS));
       setHhOn(true);
+      setHhPatio(false);
+      setHhRoof(false);
+      setDistrictActive(null);
     }
-  }, [activeFilters]);
+  }, [activeFilters, hhOn]);
 
   const toggleDistrict = useCallback((dist) => {
     setDistrictActive(prev => prev === dist ? null : dist);
