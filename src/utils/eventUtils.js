@@ -7,7 +7,7 @@ import { getTodayStr, formatDateStr } from "./dateUtils.js";
  */
 export function catMatch(event, activeFilters) {
   if (!event || !activeFilters) return false;
-  return activeFilters.has(event.cat) || (event.cat2 && activeFilters.has(event.cat2));
+  return activeFilters.has(event.cat) || !!(event.cat2 && activeFilters.has(event.cat2));
 }
 
 /**
