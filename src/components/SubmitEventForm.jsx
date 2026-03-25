@@ -76,6 +76,7 @@ export default function SubmitEventForm({ isOpen, onClose, onShowToast }) {
       venue: venue.trim(),
       hhTime: hhTime.trim(),
       hhDays,
+      recurFreq,
       district,
       url: url.trim(),
       description: desc.trim(),
@@ -209,6 +210,17 @@ export default function SubmitEventForm({ isOpen, onClose, onShowToast }) {
                     {day}
                   </label>
                 ))}
+              </div>
+              <div style={{ marginTop: '8px' }}>
+                <label style={labelStyle}>Occurs</label>
+                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                  {['weekly', 'monthly'].map(f => (
+                    <label key={f} style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px', padding: '4px 10px', border: '1px solid var(--border2)', borderRadius: '16px', background: recurFreq === f ? 'var(--happyhour)' : 'var(--surface)', color: recurFreq === f ? '#fff' : 'var(--muted)', cursor: 'pointer', transition: 'all .15s' }}>
+                      <input type="radio" name="hh-recur-freq" value={f} checked={recurFreq === f} onChange={() => setRecurFreq(f)} style={{ accentColor: 'var(--happyhour)', display: 'none' }} />
+                      {f.charAt(0).toUpperCase() + f.slice(1)}
+                    </label>
+                  ))}
+                </div>
               </div>
             </div>
           )}
