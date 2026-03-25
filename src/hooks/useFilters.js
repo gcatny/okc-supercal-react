@@ -18,7 +18,16 @@ export function useFilters() {
   }, []);
 
   const toggleAllCats = useCallback(() => {
-    setActiveFilters(prev => prev.size === ALL_CATS.length ? new Set() : new Set(ALL_CATS));
+    setActiveFilters(prev => {
+      if (prev.size === ALL_CATS.length) {
+        // Deselect all: also turn off HH
+        setHhOn(false);
+        setHhPatio(false);
+        setHhRoof(false);
+        return new Set();
+      }
+      return new Set(ALL_CATS);
+    });
   }, []);
 
   const toggleDistrict = useCallback((dist) => {
