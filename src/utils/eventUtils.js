@@ -1,6 +1,83 @@
 import { getTodayStr, formatDateStr } from "./dateUtils.js";
 
 /**
+ * Expand canonical events (recurrence rules) into flat date instances.
+ *
+ * Canonical events have:
+ *   recurrence: "none" | "weekly" | "daily"
+ *   days:       ["Mon","Tue",...] for weekly (empty = all days for daily)
+ *   startDate:  "YYYY-MM-DD"
+ *   endDate:    "YYYY-MM-DD"
+ *
+ * Returns a flat array in the same shape the rest of the app expects,
+ * each with a `date` field. Expands a 14-month window starting 30 days ago
+ * so the calendar can show past/future months without re-expanding.
+ *
+ * @param {array} canonicalData
+ * @returns {array} flat events with `date` field
+ */
+export function expandCanonicalEvents(canonicalData) {
+  if (!Array.isArray(canonicalData)) return [];
+
+  const DOW_MAP = { Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6, Sun: 0 };
+  // Window: 30 days ago → 14 months from now
+  const now = new Date();
+  const windowStart = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+  const windowEnd   = new Date(now.getFullYear(), now.getMonth() + 14, 0);
+
+  const flat = [];
+
+  for (const ev of canonicalData) {
+    const { recurrence, days = [], startDate, endDate, ...rest } = ev;
+
+    if (!startDate) continue;
+
+    // Parse start/end dates, clamped to our expansion window
+    const evStart = new Date(startDate + "T00:00:00");
+    const evEnd   = endDate ? new Date(endDate + "T00:00:00") : windowEnd;
+    const rangeStart = evStart > windowStart ? evStart : windowStart;
+    const rangeEnd   = evEnd   < windowEnd   ? evEnd   : windowEnd;
+
+    if (rangeStart > rangeEnd) continue;
+
+    if (recurrence === "none") {
+      // Single occurrence — emit once if in window
+      if (evStart >= windowStart && evStart <= windowEnd) {
+        flat.push({ ...rest, date: startDate });
+      }
+      continue;
+    }
+
+    if (recurrence === "daily") {
+      // Every day in range
+      const cur = new Date(rangeStart);
+      while (cur <= rangeEnd) {
+        flat.push({ ...rest, date: formatDateStr(cur) });
+        cur.setDate(cur.getDate() + 1);
+      }
+      continue;
+    }
+
+    if (recurrence === "weekly") {
+      // Specific days of week
+      const targetDows = days.length > 0
+        ? new Set(days.map(d => DOW_MAP[d] ?? -1))
+        : new Set([0, 1, 2, 3, 4, 5, 6]); // no days = all days
+
+      const cur = new Date(rangeStart);
+      while (cur <= rangeEnd) {
+        if (targetDows.has(cur.getDay())) {
+          flat.push({ ...rest, date: formatDateStr(cur) });
+        }
+        cur.setDate(cur.getDate() + 1);
+      }
+    }
+  }
+
+  return flat;
+}
+
+/**
  * Check if event matches active category filters
  * @param {object} event
  * @param {Set} activeFilters - set of category strings
