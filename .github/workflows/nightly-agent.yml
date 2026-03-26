@@ -1,0 +1,144 @@
+name: OKC Calendar Agent
+
+on:
+  schedule:
+    # 2 AM Central = 8 AM UTC (7 AM UTC during daylight saving)
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+    inputs:
+      monday_report:
+        description: "Force Monday report"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+jobs:
+  run-agent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Detect Monday & set env
+        run: |
+          DAY=$(date +%A)
+          echo "Today is $DAY"
+          if [ "$DAY" = "Monday" ] || [ "${{ github.event.inputs.monday_report }}" = "true" ]; then
+            echo "IS_MONDAY=true" >> $GITHUB_ENV
+            echo "Monday mode: ON"
+          else
+            echo "IS_MONDAY=false" >> $GITHUB_ENV
+          fi
+
+      - name: Run OKC Calendar Agent
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_SHEET_URL: ${{ secrets.GOOGLE_SHEET_URL }}
+          IS_MONDAY: ${{ env.IS_MONDAY }}
+        run: |
+          python okc_calendar_agent.py
+
+      - name: Verify JSON output
+        run: |
+          # Check events.json
+          if [ ! -f src/data/events.json ]; then
+            echo "ERROR: events.json not found after agent run"
+            exit 1
+          fi
+
+          EVENTS_SIZE=$(wc -c < src/data/events.json)
+          echo "events.json size: $EVENTS_SIZE bytes"
+
+          if [ "$EVENTS_SIZE" -lt 100 ]; then
+            echo "ERROR: events.json seems too small ($EVENTS_SIZE bytes)"
+            exit 1
+          fi
+
+          # Validate JSON syntax
+          python3 -c "
+          import json, sys
+          try:
+              with open('src/data/events.json') as f:
+                  events = json.load(f)
+              print(f'â events.json: {len(events)} events, valid JSON')
+          except Exception as e:
+              print(f'ERROR: events.json invalid: {e}')
+              sys.exit(1)
+
+          try:
+              with open('src/data/happyHours.json') as f:
+                  hh = json.load(f)
+              print(f'â happyHours.json: {len(hh)} venues, valid JSON')
+          except Exception as e:
+              print(f'WARNING: happyHours.json issue: {e}')
+          "
+
+      - name: Check if files changed
+        id: diff
+        run: |
+          if git diff --quiet src/data/events.json src/data/happyHours.json agent_log.json 2>/dev/null; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No changes to commit"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Changes detected â will commit"
+          fi
+
+      - name: Commit and push changes
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name  "OKC Calendar Agent"
+          git config user.email "agent@okc-calendar.github.io"
+
+          git add src/data/events.json src/data/happyHours.json agent_log.json
+
+          DATE=$(date "+%B %d, %Y")
+          if [ "$IS_MONDAY" = "true" ]; then
+            git commit -m "ðï¸ Weekly update â $DATE [Monday report]"
+          else
+            git commit -m "ðï¸ Nightly update â $DATE"
+          fi
+
+          git push
+
+      - name: No changes â still log
+        if: steps.diff.outputs.changed == 'false'
+        run: |
+          echo "Calendar is up to date â no new events found tonight"
+
+      - name: Write step summary (always)
+        if: always()
+        run: |
+          echo "## OKC Calendar Agent Run â $(date '+%B %d, %Y')" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ -f agent_log.json ]; then
+            python3 -c "
+          import json
+          try:
+              logs = json.load(open('agent_log.json'))
+              last = logs[-1] if logs else {}
+              print(f\"- Sources run: {last.get('sources_run','?')}\")
+              print(f\"- New events scraped: +{last.get('new_events_scraped',0)}\")
+              print(f\"- Total events exported: {last.get('total_events_exported',0)}\")
+              print(f\"- Happy hours exported: {last.get('total_hh_exported',0)}\")
+              print(f\"- Approved submissions: {last.get('approved_submissions',0)}\")
+              print(f\"- Failed sources: {len(last.get('failed_sources', []))}\")
+              if last.get('failed_sources'):
+                  for s in last['failed_sources']:
+                      print(f\"  - {s}\")
+          except Exception as e:
+              print(f'Could not read log: {e}')
+          " >> $GITHUB_STEP_SUMMARY
+          fi
