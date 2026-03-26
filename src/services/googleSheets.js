@@ -1,5 +1,5 @@
 export const GOOGLE_SHEET_URL =
-  "https://script.google.com/macros/s/AKfycbx18bq_F9v48ppoBHQeBev40qDiMYVhBWR7jUI8-VuCZHQzIZcoM_TpbLkjSYMl8Xof/exec";
+  "https://script.google.com/macros/s/AKfycbx2sEmez5fQP_3uM7o1XBWFj_NBxUxKed7b_xZd3lBjIIU8n8gyiaJO53JvH0kG6cVF/exec";
 
 /**
  * Send a submission to Google Sheets via Apps Script
