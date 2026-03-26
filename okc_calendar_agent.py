@@ -1,0 +1,1203 @@
+#!/usr/bin/env python3
+"""
+OKC Super Calendar â Nightly Event Agent (React Version)
+
+Runs via GitHub Actions every night at 2 AM Central (8 AM UTC).
+
+Data flow:
+  1. Reads current events & happy hours from Google Sheets (source of truth)
+  2. Calls Anthropic API with web search for each source to find new events
+  3. Deduplicates new events against what's already in the sheet
+  4. Writes new events back to the Google Sheet "Events" tab
+  5. Exports full Events + Happy Hours tabs as JSON files
+  6. Commits JSON files to the React repo â triggers Vercel rebuild
+
+Supports dual-category tagging (cat + cat2) for crossover events.
+"""
+import os, json, re, time, datetime, sys
+import urllib.request, urllib.error
+
+API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+if not API_KEY:
+    print("ERROR: ANTHROPIC_API_KEY not set", file=sys.stderr)
+    sys.exit(1)
+
+GOOGLE_SHEET_URL = os.environ.get("GOOGLE_SHEET_URL", "")
+if not GOOGLE_SHEET_URL:
+    print("ERROR: GOOGLE_SHEET_URL not set", file=sys.stderr)
+    sys.exit(1)
+
+TODAY = datetime.date.today()
+TODAY_STR = TODAY.strftime("%B %d, %Y")
+CUTOFF = TODAY.isoformat()
+
+# Paths to output JSON files (React imports these)
+EVENTS_JSON_PATH = "src/data/events.json"
+HH_JSON_PATH = "src/data/happyHours.json"
+
+# ââ VALID CATEGORIES ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+VALID_CATS = {
+    'art', 'music', 'food', 'sports', 'fest', 'theater', 'comedy',
+    'film', 'free', 'family', 'culture', 'running', 'civic',
+    'industry', 'convention', 'volunteer', 'happyhour', 'fundraiser', 'fashion',
+    'farmersmarket'
+}
+
+DUAL_TAG_RULES = {
+    'fashion': {
+        'keywords': ['gala', 'ball', 'black tie', 'fashion', 'runway', 'boutique market'],
+        'from_cats': ['fundraiser', 'fest', 'culture'],
+    },
+    'fundraiser': {
+        'keywords': ['fundraiser', 'fundraising', 'benefit dinner', 'charity'],
+        'from_cats': ['fashion', 'art', 'culture', 'family'],
+    },
+}
+
+JSON_INSTRUCTION = (
+    " Search the web to find REAL confirmed upcoming events. "
+    "Return ONLY a raw JSON array with no markdown, no code fences, no preamble. "
+    "Each item must have: "
+    "name (string), venue (string, include city), date (YYYY-MM-DD), "
+    "desc (one concise sentence with time if known), "
+    "cat (one of: art|music|food|sports|fest|theater|comedy|film|free|family|"
+    "culture|running|civic|industry|convention|volunteer|happyhour|fundraiser|fashion|farmersmarket), "
+    "confirmed (true/false), source (string), "
+    "tickets (URL string or empty string), free (true/false), "
+    "district (string â use one of: Downtown / City Center, Bricktown, Midtown, "
+    "Plaza District, Paseo Arts District, Automobile Alley, Deep Deuce, "
+    "Uptown 23rd, Western Avenue, Classen Curve / OAK, Film Row / West Village, "
+    "Adventure District, Boathouse District, Capitol Hill, Stockyards City, "
+    "Asian District, Wheeler District, 39th Street District, East End District, "
+    "State Fair Park, Edmond, Norman, Stillwater, Tulsa, or Various). "
+    "Only include events with confirmed specific dates. "
+    "Return array starting with [ and ending with ]. No other text."
+)
+
+# ââ SOURCES âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+# (Exact same SOURCES dict from the original agent â preserved in full)
+
+SOURCES = {
+    'plaza': {
+        'label': 'Plaza District OKC',
+        'system': (
+            'You find events on the Plaza District event calendar at '
+            'plazadistrict.org/event-calendar in Oklahoma City. Search for all '
+            'upcoming Plaza District events including LIVE on the Plaza (2nd Friday '
+            'of each month Feb-Oct, 6-10 PM, free), LOVE! on the Plaza, PRIDE! on '
+            'the Plaza, SKATE! the Plaza, the annual Plaza District Festival (fall), '
+            'Coffee & Conversations, Cocktails & Conversations, block parties, '
+            'pop-up markets, and any special events. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'paseo': {
+        'label': 'Paseo Arts District OKC',
+        'system': (
+            'You find events listed on thepaseo.org and thepaseo.org/paseocalendar1 '
+            'for the Paseo Arts District Oklahoma City. Search for all upcoming '
+            'gallery openings, First Friday Paseo Gallery Walks, FEAST events, '
+            'Paseo Arts Festival (Memorial Day weekend), Paseo Arts Awards, '
+            'workshops, studio tours, art shows, and special events in the '
+            'Paseo district. Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'downtown': {
+        'label': 'Downtown OKC, Bricktown & Wheeler District',
+        'system': (
+            'You find events in Downtown OKC and Bricktown Oklahoma City. '
+            'Search downtownokc.com/events, bricktownokc.com, '
+            'welcometobricktown.com, and wheelerdistrict.com/events for upcoming '
+            'festivals, concerts, markets, outdoor movies, First Friday events, '
+            'and all public happenings in downtown OKC including Bricktown, '
+            'Wheeler District, Automobile Alley, and Film Row. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'westvillage': {
+        'label': 'West Village, Midtown & Classen OKC',
+        'system': (
+            'You find events in the West Village, Classen Curve, and Midtown '
+            'areas of Oklahoma City. Search westvillageokc.com, midtown OKC '
+            'event listings, and Classen Curve shops/restaurants for pop-up '
+            'markets, outdoor events, restaurant events, gallery shows, and '
+            'community happenings in western and midtown OKC. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'western_ave': {
+        'label': 'Western Avenue Association OKC',
+        'system': (
+            'You find events hosted by or along Western Avenue in Oklahoma City. '
+            'Search visitwesternavenue.com/events-list for upcoming events including '
+            'Taste of Western, Wheels on Western, Wizards on Western, and other '
+            'Western Avenue Association events. Use source string '
+            '"Western Avenue Association - visitwesternavenue.com". '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'midtownokc': {
+        'label': 'Midtown OKC Events',
+        'system': (
+            'You find upcoming events in the Midtown Oklahoma City district. '
+            'Search midtownokc.com/events and midtownokc.com/signature-events for block parties, '
+            'pop-up markets, restaurant events, art walks, and community happenings in Midtown OKC. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'paycom': {
+        'label': 'Paycom Center OKC',
+        'system': (
+            'You find upcoming events at Paycom Center in Oklahoma City at '
+            '100 W Reno Ave. Search paycomcenter.com/events for all upcoming '
+            'concerts, OKC Thunder NBA games, family shows, PBR bull riding, '
+            'monster trucks, ice shows, touring Broadway, and all special events. '
+            'Today is {today}. Return all events for the next 180 days.'
+        )
+    },
+    'yale': {
+        'label': 'The Yale Theater OKC',
+        'system': (
+            'You find upcoming events at The Yale Theater in Oklahoma City '
+            'at 227 SW 25th Street in Capitol Hill. Search theyaleokc.com/'
+            'upcoming-events for Candlelight concerts (Coldplay, Fleetwood Mac, '
+            'Beatles, etc.), Jazz Room shows, Jury Experience immersive theater, '
+            'MOMENTUM performances, art exhibitions, and all special events. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'jonesassembly': {
+        'label': 'Jones Assembly OKC',
+        'system': (
+            'You find upcoming shows at Jones Assembly in Oklahoma City at '
+            '901 W Sheridan Ave. Search jonesassembly.com/events for all '
+            'upcoming concerts, touring acts, comedy shows, private events, '
+            'and special performances. Today is {today}. '
+            'Return events for the next 90 days.'
+        )
+    },
+    'tower': {
+        'label': 'Tower Theatre OKC',
+        'system': (
+            'You find upcoming shows at Tower Theatre in Oklahoma City at '
+            '425 NW 23rd St. Search towertheatreokc.com/events and '
+            'prekindle.com/events/tower-theatre for all upcoming '
+            'concerts, comedy shows, touring acts, tribute bands, dance parties, '
+            'and special events at this historic venue. Today is {today}. '
+            'Return events for the next 90 days.'
+        )
+    },
+    'criterion': {
+        'label': 'The Criterion OKC',
+        'system': (
+            'You find upcoming shows at The Criterion in Oklahoma City at '
+            '500 E Sheridan Ave in Bricktown. Search criterionokc.com or '
+            'livenation.com/venue/LA3A1Efpkz0zLl for all upcoming concerts and '
+            'touring acts at The Criterion. Today is {today}. '
+            'Return events for the next 90 days.'
+        )
+    },
+    'beercity': {
+        'label': 'Beer City Music Hall OKC',
+        'system': (
+            'You find upcoming shows at Beer City Music Hall in Oklahoma City. '
+            'Search prekindle.com/events/beer-city-music-hall and '
+            'beercitymusichall.com for all upcoming concerts, local and touring '
+            'acts, and special events. Today is {today}. '
+            'Return events for the next 90 days.'
+        )
+    },
+    'zoo_amp': {
+        'label': 'Zoo Amphitheatre OKC',
+        'system': (
+            'You find upcoming concerts and events at Zoo Amphitheatre in '
+            'Oklahoma City at 2101 NE 50th St inside OKC Zoo. Search '
+            'zooamphitheatre.net and livenation.com for all upcoming outdoor '
+            'concerts and shows. Today is {today}. '
+            'Return events for the next 180 days.'
+        )
+    },
+    'ponyboy': {
+        'label': 'Ponyboy OKC',
+        'system': (
+            'You find upcoming events at Ponyboy bar/venue in Oklahoma City '
+            'at 700 W Sheridan Ave. Search prekindle.com/events/ponyboy and '
+            'Ponyboy OKC social media for upcoming live music, DJ nights, '
+            'karaoke, theme parties, and special events upstairs and downstairs. '
+            'Today is {today}. Return events for the next 60 days.'
+        )
+    },
+    'national': {
+        'label': 'The National OKC',
+        'system': (
+            'You find events on The National hotel event calendar at '
+            'thenationalokc.com/events in Oklahoma City (120 N Robinson Ave). '
+            'Search for all upcoming events including Afternoon Tea: RoyalTEA, '
+            'Live Music at The Vault, Sunday Jazz Brunch at Tellers, '
+            'wine dinners at Stock & Bone, and all special dining experiences. '
+            'Today is {today}. Return all events for the next 90 days.'
+        )
+    },
+    'civiccenter': {
+        'label': 'Civic Center Music Hall OKC',
+        'system': (
+            'You find upcoming events at Civic Center Music Hall at 201 N Walker Ave, Oklahoma City. '
+            'Search okcciviccenter.com/events and okcbroadway.com/upcomingevents for all performances '
+            'including OKC Broadway touring shows, OKC Philharmonic concerts, OKC Ballet performances, '
+            'Canterbury Voices, Lyric Theatre, Painted Sky Opera, and special one-night shows. '
+            'Today is {today}. Return all events for the next 180 days.'
+        )
+    },
+    'tulsa': {
+        'label': "Cain's Ballroom Tulsa",
+        'system': (
+            "You find upcoming shows at Cain's Ballroom in Tulsa Oklahoma at "
+            '423 N Main St. Search cainsballroom.com for all confirmed concerts, '
+            'touring acts, and special events at this historic ballroom. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'allied': {
+        'label': 'Allied Arts & Arts Council OKC',
+        'system': (
+            'You find upcoming arts events in Oklahoma City. Search '
+            'alliedartsokc.com, artscouncilokc.com/events, and '
+            'artscouncilokc.com/art-moves for ARTini galas, arts fundraisers, '
+            'Art Moves free performances, Festival of the Arts (Apr 23-26 2026), '
+            'Angels & Friends (Apr 22 2026), and all Allied Arts and Arts Council '
+            'OKC programs. Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'okcmoa': {
+        'label': 'OKC Museum of Art',
+        'system': (
+            'You find upcoming exhibitions and events at the Oklahoma City Museum '
+            'of Art at 415 Couch Dr. Search okcmoa.com/exhibitions, '
+            'okcmoa.com/events, okcmoa.com/film, and okcmoa.com/upcoming-films for '
+            'current and upcoming exhibitions, film screenings, Art After Five, '
+            'fundraisers, Renaissance Ball, and public programs. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'okcontemp': {
+        'label': 'Oklahoma Contemporary Arts Center',
+        'system': (
+            'You find upcoming events at Oklahoma Contemporary arts center at 11 NW 11th St, OKC. '
+            'Search oklahomacontemporary.org/events/calendar AND oklahomacontemporary.org/events/special-events/ '
+            'for all upcoming public events including '
+            'Second Saturday (2nd Sat monthly, 1-4 PM, free family art day), '
+            'Sensory Friendly Hour, Guided Public Tours (Saturdays 1 PM, free), '
+            'gallery programs, performances, workshops, new exhibition openings, '
+            'and special events such as Founders Day, Industry Night, and any galas or fundraisers. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'film2': {
+        'label': 'Film, Factory Obscura & Immersive Art OKC',
+        'system': (
+            'You find upcoming film and immersive art events in OKC. '
+            'Search factoryobscura.com/events for Mix-Tape immersive events '
+            'and workshops. Search deadcenterfilm.org for deadCenter Film Festival '
+            'screenings. Search okcmoa.com/film for OKCMOA film series. '
+            'Search oklahomafilm.org for OKC film events and screenings. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'theater2': {
+        'label': 'Theater & Performing Arts OKC',
+        'system': (
+            'You find upcoming theater and performing arts in Oklahoma City. '
+            'Search lyrictheatreokc.com for Lyric Theatre musicals and shows. '
+            'Search okcrep.org for OKC Rep productions. '
+            'Search okcballet.org/performances for OKC Ballet. '
+            'Search okcphil.org/events-tickets/25-26-season for OKC Philharmonic. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'ovac_okc': {
+        'label': 'OVAC Oklahoma Arts Calendar',
+        'system': (
+            'You find upcoming visual arts events in Oklahoma City from the OVAC Oklahoma Arts Calendar. '
+            'Search ovac-ok.org/okartscalendar for gallery shows, openings, art walks, artist talks, '
+            'deadlines, and opportunities in the OKC metro. Oklahoma City events only. '
+            'Today is {today}. Return events for the next 60 days.'
+        )
+    },
+    'scissortail': {
+        'label': 'Scissortail Park OKC',
+        'system': (
+            'You find upcoming events at Scissortail Park in downtown Oklahoma City (300 SW 7th St). '
+            'Search scissortailpark.org/events and scissortailpark.org/calendar for concerts, night markets, '
+            'walking club (Thursdays and Sundays 8-8:30 AM year-round), festivals, fitness classes, '
+            'kite festivals, and special events. Free outdoor concerts on Loves Travel Stops Stage May-October. '
+            'Today is {today}. Return events for the next 90 days. Mark free events as free:true.'
+        )
+    },
+    'myriad_calendar': {
+        'label': 'Myriad Botanical Gardens Calendar',
+        'system': (
+            'You find all events at Myriad Botanical Gardens at 301 W Reno, Oklahoma City. '
+            'Search myriadgardens.org/calendar for upcoming events including free yoga classes '
+            '(Mondays 6-7 PM), Reading Wednesday storytime (10-10:45 AM), orchid shows, '
+            'sound baths, youth workshops, plant sales, and all public programming. '
+            'Also check myriadgardens.org/events/flower-garden-festival-2026 for the OKC Flower '
+            'and Garden Festival (May 9, 2026, free, 9 AM-4 PM, 70+ vendors). '
+            'Today is {today}. Return all events through July 2026. Mark free events as free:true.'
+        )
+    },
+    'sports': {
+        'label': 'OKC Sports (Thunder, Comets, FC)',
+        'system': (
+            'You find upcoming home sports events in Oklahoma City. '
+            'Search nba.com/thunder/schedule for OKC Thunder NBA home games at Paycom Center. '
+            'Search milb.com/oklahoma-city for OKC Comets home baseball games '
+            'at Chickasaw Bricktown Ballpark. '
+            'Search okcfc.com/schedule for OKC FC home soccer matches. '
+            'Today is {today}. Return all home games for next 90 days.'
+        )
+    },
+    'okc_thunder': {
+        'label': 'OKC Thunder â NBA Schedule',
+        'system': (
+            'You find upcoming OKC Thunder home games at Paycom Center (100 W Reno Ave, OKC). '
+            'Search nba.com/thunder/schedule or ticketmaster.com/oklahoma-city-thunder-tickets '
+            'for home game dates, tip-off times, opponents, and TV broadcast info. '
+            'Include playoff games if applicable. '
+            'Today is {today}. Return home games for the next 45 days.'
+        )
+    },
+    'okc_comets': {
+        'label': 'OKC Comets Baseball',
+        'system': (
+            'You find upcoming OKC Comets home games at Chickasaw Bricktown Ballpark. '
+            'Search milb.com/oklahoma-city/schedule for home games. '
+            'Also check milb.com/oklahoma-city/tickets/specialty-nights for theme nights. '
+            'Include Fireworks Fridays, theme nights, and special events. '
+            'Today is {today}. Return home games for the next 45 days.'
+        )
+    },
+    'equine': {
+        'label': 'Horse Shows & Equine Events OKC',
+        'system': (
+            'You find upcoming horse shows and equine events in Oklahoma City. '
+            'Search nrhafuturity.com, okcfairpark.com/schedule, okqha.org/shows, '
+            'and visitokc.com/events/horse-shows for horse shows at '
+            'OKC Fairpark and State Fair Arena. Include NRHA, AQHA, '
+            'barrel racing, cutting horse, and reining events. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'running': {
+        'label': 'Running, Fitness & Riversports OKC',
+        'system': (
+            'You find upcoming running races and fitness events in OKC. '
+            'Search okcmarathon.com for OKC Memorial Marathon weekend events. '
+            'Search riversportokc.org/events for whitewater and paddle events. '
+            'Search runsignup.com for Oklahoma City 5Ks, half marathons, '
+            'triathlons, and cycling events. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'cycling_okc': {
+        'label': 'OKC Cycling & MTB Events',
+        'system': (
+            'You find upcoming cycling and mountain bike events in the Oklahoma City metro area. '
+            'Search findarace.com/us/cycling/oklahoma/oklahoma-city for OKC cycling events. '
+            'Also check bikereg.com and active.com for OKC cycling races. '
+            'Only include events within 25 miles of downtown OKC. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'pickleball_okc': {
+        'label': 'OKC Pickleball Tournaments',
+        'system': (
+            'You find upcoming pickleball tournaments in the Oklahoma City metro area. '
+            'Search allpickleballtournaments.com for Oklahoma City pickleball events. '
+            'Also check chickennpickle.com/oklahoma-city-events. '
+            'OKC metro only â within 25 miles of downtown OKC. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'usta_okc': {
+        'label': 'OKC Tennis Center â USTA Tournaments',
+        'system': (
+            'You find upcoming tennis tournaments at OKC Tennis Center (3400 N Portland Ave). '
+            'Search playtennis.usta.com/oklahomacitytenniscenter/Tournaments for USTA events. '
+            'Also check app.utrsports.net for UTR-rated OKC tournaments. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'golf_okc': {
+        'label': 'OKC Amateur Golf',
+        'system': (
+            'You find upcoming amateur golf tournaments in the Oklahoma City metro area. '
+            'Search okgolf.org/all-events for Oklahoma Golf Association events. '
+            'Also search amateurgolf.com/amateur-golf-tournaments/ByCity/Oklahoma-City. '
+            'Skip events more than 25 miles from downtown OKC. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'oksportsfit': {
+        'label': 'OK Sports & Fitness â Running/Tri Calendar',
+        'system': (
+            'You find upcoming running races, triathlons, cycling events, and fitness events '
+            'in the Oklahoma City metro area. Search oksportsandfitness.com/event-calendar. '
+            'Focus on events within 25 miles of downtown OKC. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'rivers_sport': {
+        'label': 'RIVERSPORT OKC Events',
+        'system': (
+            'You find upcoming special events at RIVERSPORT OKC on the Oklahoma River. '
+            'Search riversportokc.org/events for festivals, races, and special events. '
+            'Include Stars & Stripes River Festival, PaddleFest, Dragon Boat races, rowing regattas. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'ou_football': {
+        'label': 'OU Sooners Football',
+        'system': (
+            'You find upcoming Oklahoma Sooners football game details. '
+            'Search soonersports.com/sports/football/schedule/2026 for confirmed kickoff times, '
+            'TV networks, and schedule for home games at Gaylord Family Oklahoma Memorial Stadium in Norman. '
+            'Also include the Red River Rivalry vs Texas in Dallas. '
+            'Today is {today}. Return games for the next 90 days.'
+        )
+    },
+    'osu_football': {
+        'label': 'OSU Cowboys Football',
+        'system': (
+            'You find upcoming Oklahoma State Cowboys football game details. '
+            'Search okstate.com/sports/football/schedule for confirmed kickoff times, '
+            'TV networks, and schedule for home games at Boone Pickens Stadium in Stillwater. '
+            'Today is {today}. Return games for the next 90 days.'
+        )
+    },
+    'surlatable': {
+        'label': 'Sur La Table OKC Cooking Classes',
+        'system': (
+            'You find upcoming cooking classes at Sur La Table at Classen Curve '
+            'in Oklahoma City. Search surlatable.com/cooking-classes/'
+            'in-store-cooking-classes for OKC classes including Date Night, '
+            'Knife Skills, international cuisine, baking, and team events. '
+            'Today is {today}. Return classes for the next 60 days.'
+        )
+    },
+    'food_events': {
+        'label': 'OKC Food & Dining Events',
+        'system': (
+            'You find upcoming food and dining events in Oklahoma City. '
+            'Search for restaurant pop-ups, food festivals, OKC Restaurant Week, '
+            'wine dinners, tasting events, chef table series, food truck festivals, '
+            'and culinary events. Check visitokc.com/events/food-and-drink. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'coffee_cars': {
+        'label': 'Coffee & Cars OKC',
+        'system': (
+            'You find upcoming Coffee & Cars OKC monthly car show events. '
+            'Check coffeeandcarsokc.com/event-schedule for the full schedule. '
+            'Coffee & Cars OKC meets the first Saturday of every month, 8-11 AM, '
+            'at Life.Church OKC, 2001 NW 178th St, Edmond, OK 73012. '
+            'Free, all-makes/models car gathering open to the public. '
+            'Today is {today}. Return all upcoming monthly events for the next 12 months.'
+        )
+    },
+    'visitokc': {
+        'label': 'VisitOKC Annual & Featured Events',
+        'system': (
+            'You find upcoming events from VisitOKC. Search visitokc.com/events, '
+            'visitokc.com/events/this-month-in-okc, and '
+            'visitokc.com/events/annual-events for confirmed upcoming OKC events '
+            'including the Tulip Festival, OKC Pride, Juneteenth on the East, '
+            'Festival of the Arts, Prix de West, Fright Fest, Fiestas de las '
+            'Americas, Steamroller Printmaking, Stockyards Stampede, and all '
+            'major annual and featured OKC events. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'library': {
+        'label': 'Metropolitan Library System OKC',
+        'system': (
+            'You find free events at the Oklahoma Metropolitan Library System. '
+            'Search metrolibrary.org/events and metrolibrary.org/programs for '
+            'upcoming free community events including author talks, workshops, '
+            'teen and kids programs, film screenings, cultural celebrations, '
+            'book clubs, STEM events, and all public events at OKC metro '
+            'library branches. Today is {today}. Return events for the next '
+            '60 days. Mark all as free:true.'
+        )
+    },
+    'civic': {
+        'label': 'Civic, Government & Myriad Gardens OKC',
+        'system': (
+            'You find upcoming civic and community events in Oklahoma City. '
+            'Search okc.gov/government/city-council for OKC City Council meetings. '
+            'Search oklahoma.gov/elections for upcoming election dates. '
+            'Today is {today}. Return events for the next 60 days.'
+        )
+    },
+    'chamber': {
+        'label': 'OKC Chamber & Business Events',
+        'system': (
+            'You find upcoming OKC Chamber of Commerce and business events. '
+            'Search okcchamber.com/events for chamber luncheons, State Spotlight, '
+            'Government Affairs breakfasts, networking events, award ceremonies, '
+            'and Greater OKC Chamber programs. '
+            'Today is {today}. Return events for and the next 90 days.'
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'tech': {
+        'label': 'Tech, Startup & Innovation OKC',
+        'system': (
+            'You find upcoming tech and startup events in OKC. '
+            'Search 36degreesnorth.co/events for startup ecosystem events. '
+            'Search okcinnovation.com/events for OKC Innovation District events. '
+            'Search okcoders.com/events for coding community events. '
+            'Search meetup.com for Oklahoma City tech meetups. '
+            'Search ou.edu/tomlove/events for Tom Love Innovation Hub events. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'verge_okc': {
+        'label': 'The Verge OKC',
+        'system': (
+            'You find upcoming public events at The Verge OKC (600 N. Robinson Ave #500, OKC). '
+            'Check vergeokc.com/news-events for upcoming events. '
+            'Key recurring events: 1 Million Cups (every Wednesday 9-10 AM, free), '
+            'Pitches, Pizza & Pints (4th Wednesday, evening, free), '
+            'OTV Workshops (1st Wednesday 4-6 PM, free). '
+            'Today is {today}. Return events for the next 90 days. Mark all as free:true.'
+        )
+    },
+    'oilandgas': {
+        'label': 'Oil, Gas & Energy Industry OKC',
+        'system': (
+            'You find upcoming oil, gas, and energy industry events in OKC. '
+            'Search okenergytoday.com/events, thepetroleumalliance.com/events, '
+            'speokcogs.org for SPE OKC events, and oerb.com for OERB events. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'realestate': {
+        'label': 'Real Estate & Development OKC',
+        'system': (
+            'You find upcoming real estate and development events in OKC. '
+            'Search my.okstatehomebuilders.com/events for homebuilder events. '
+            'Search uli.org/events for Urban Land Institute OKC events. '
+            'Search eventbrite.com for OKC real estate investor meetups. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'prsa_okc': {
+        'label': 'PRSA Oklahoma City',
+        'system': (
+            'You find upcoming events from PRSA Oklahoma City. '
+            'Search prsaokc.com for monthly luncheons, Professional Development Day, '
+            'Upper Case Awards, New Pros events, and special panels. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'aia_okc': {
+        'label': 'AIA Central Oklahoma Events',
+        'system': (
+            'You find upcoming events from AIA Central Oklahoma. '
+            'Search aiacoc.org/events-programs for Architecture After 5 networking, luncheons, '
+            'Architecture Week, the annual Architecture Tour, and other programs. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'science': {
+        'label': 'Science Museum Oklahoma',
+        'system': (
+            'You find events at Science Museum Oklahoma at 2020 Remington Pl. '
+            'Search sciencemuseumok.org/smoevents and sciencemuseumok.org/planetarium '
+            'for upcoming special events, IMAX and planetarium shows, SMO21+ adult nights, '
+            'DiscoverFest, Women in STEAM, family science nights, and educational programs. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'family': {
+        'label': 'Family & Kids Events OKC',
+        'system': (
+            'You find family-friendly and kids events in Oklahoma City. '
+            'Search okczoo.org/events for OKC Zoo events and special programs. '
+            'Search myriadgardens.org/events for family events. '
+            'Look for traveling shows like Jurassic Quest, Blue Man Group, '
+            'Disney on Ice, and family-friendly events across OKC. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'okana': {
+        'label': 'OKANA Resort & Indoor Waterpark',
+        'system': (
+            'You find upcoming public-facing events at OKANA Resort & Indoor Waterpark '
+            'at 639 First Americans Blvd, Oklahoma City. '
+            'Check okanaresort.com/activities-and-events for events open to the public. '
+            'Include: live music at The Boardwalk Amphitheatre, seasonal celebrations, '
+            'Pajama Storytime (Fri/Sat 7-8 PM, free, lobby fireplace), '
+            'outdoor waterpark events, and ticketed public events. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'oakokc': {
+        'label': 'OAK Heartwood Park OKC',
+        'system': (
+            'You find upcoming events at OAK Heartwood Park at 2124 NW Expressway, OKC. '
+            'Search oakokc.com/events for the weekly OAK Farmers Market (Saturdays 9 AM-1 PM, '
+            'April 25 through October 31), Junction Coffee Bus, art installations, and community events. '
+            'Today is {today}. Return events for and the next 180 days. Mark farmers market as free:true.'
+        )
+    },
+    'music_fests': {
+        'label': 'Music Festivals Oklahoma',
+        'system': (
+            'You find upcoming music festivals in Oklahoma. '
+            'Search normanmusicfestival.com for Norman Music Festival (FREE). '
+            'Search rocklahoma.com for Rocklahoma (Sept, Pryor OK). '
+            'Search woodyfest.com for WoodyFest (July, Okemah OK). '
+            'Search calffryfest.com for Calf Fry (Stillwater). '
+            'Search for Born & Raised OKC, Future of Sound Fest. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'fairs': {
+        'label': 'Fairs, Expos & Fairpark OKC',
+        'system': (
+            'You find upcoming fairs, expos, and fairpark events in OKC. '
+            'Search okstatefair.com for the Oklahoma State Fair. '
+            'Search okcfairpark.com/schedule for OKC Fairpark events including '
+            'livestock shows, home & garden shows, bridal expos, and special events. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'conventions': {
+        'label': 'Conventions & Comic Cons OKC',
+        'system': (
+            'You find upcoming conventions, expos, and cons in Oklahoma City. '
+            'Search galaxycon.com for GalaxyCon OKC. '
+            'Search soonercon.com for SoonerCon. '
+            'Search okcconventioncenter.com/events for convention center events. '
+            'Search for HorrorCon OKC, anime cons, and collector expos. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'culture': {
+        'label': 'Cultural & Heritage Events OKC',
+        'system': (
+            'You find upcoming cultural and heritage events in Oklahoma City. '
+            'Search nationalcowboymuseum.org/events for Cowboy Museum and Prix de West events. '
+            'Search okhistory.org/calendar for Oklahoma Historical Society events. '
+            'Search firstamericansmuseum.org for First Americans Museum events. '
+            'Search redearth.org for Red Earth Festival. '
+            'Search asiandistrictok.com/upcoming-events for Asian District OKC events. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'okhistory': {
+        'label': 'Oklahoma History Center',
+        'system': (
+            'You find upcoming public events at the Oklahoma History Center (800 Nazih Zuhdi Dr, OKC). '
+            'Search okhistory.org/calendar/location/oklahoma-history-center for lectures, living history, '
+            'exhibitions, symposia, and special programs. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'galas': {
+        'label': 'Galas, Fundraisers & Nonprofits OKC',
+        'system': (
+            'You find upcoming galas, fundraisers, and nonprofit events in OKC. '
+            'Search alliedartsokc.com for ARTini and arts fundraisers. '
+            'Search okcnp.org/events and npofoklahoma.com/events for nonprofit events. '
+            'Search 405magazine.com/events for charity galas and benefit dinners. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'volunteer_okc': {
+        'label': 'OKC Volunteer Events',
+        'system': (
+            'You find upcoming volunteer events in the Oklahoma City metro area. '
+            'Search volunteercentraloklahoma.org/calendar for dated volunteer events. '
+            'Also check okcbeautiful.com/calendar for OKC Beautiful volunteer events. '
+            'Check unitedwayokc.org/get-involved/volunteer for United Way events. '
+            'Only include events with a confirmed date in the OKC metro. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'habitat_okc': {
+        'label': 'Habitat for Humanity OKC Build Days',
+        'system': (
+            'You find upcoming volunteer build days at Central Oklahoma Habitat for Humanity. '
+            'Check helpmyhabitat.com/need for upcoming build days and ReStore volunteer shifts. '
+            'Only include events with a confirmed date in the OKC metro area. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'food_bank_okc': {
+        'label': 'Regional Food Bank of Oklahoma',
+        'system': (
+            'You find upcoming volunteer shift opportunities at the Regional Food Bank of Oklahoma. '
+            'Check rfbo.org/volunteer for upcoming volunteer dates and shift availability. '
+            'Include food sorting shifts, mobile pantry events, and special volunteer days. '
+            'Today is {today}. Return events for the next 60 days.'
+        )
+    },
+    'okcbeautiful': {
+        'label': 'OKC Beautiful Events',
+        'system': (
+            'You find upcoming events from OKC Beautiful at okcbeautiful.com/calendar. '
+            'Search for Earth Fest (free annual festival at Scissortail Park), '
+            'seedling giveaways, LitterBlitz cleanup events, and all community '
+            'environmental and sustainability events. '
+            'Today is {today}. Return events for the next 90 days. Mark free events as free:true.'
+        )
+    },
+    'okhumane': {
+        'label': 'Oklahoma Humane Society Events',
+        'system': (
+            'You find upcoming events from the Oklahoma Humane Society at okhumane.org. '
+            'Search okhumane.org/poochella for Poochella (annual dog and music festival). '
+            'Search okhumane.org/events for the annual gala, Yule Log event, adoption events. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'fashion': {
+        'label': 'OKC Fashion Events',
+        'system': (
+            'You find upcoming fashion events in Oklahoma City. '
+            'Search for fashion shows, runway events, boutique markets, vintage fashion markets, '
+            'and fashion-related pop-ups in OKC. Include events like Work the Runway (Goodwill), '
+            'Oklahoma Black Fashion Week, Girls Day Out OKC, Wanderlust Pop-Up Shops, '
+            'Vintage Market Days OKC, Affair of the Heart, and Sleigh Bells Market. '
+            'Also check revolve-productions.com/upcoming-events for boutique market events. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'free': {
+        'label': 'Free Events OKC',
+        'system': (
+            'You find free, no-cost events in Oklahoma City Oklahoma. '
+            'Search for upcoming FREE events including free concerts, free '
+            'festivals, gallery openings, outdoor movies, community park events, '
+            'free museum days, free art walks, free library events, free family '
+            'events, and all zero-cost events in OKC. '
+            'Today is {today}. Return events for the next 90 days. '
+            'Mark all as free:true.'
+        )
+    },
+    'okgazette': {
+        'label': 'OKC Gazette & Local Media Events',
+        'system': (
+            'You find newly announced OKC events covered by local media. '
+            'Search okgazette.com, news9.com/entertainment/things-to-do, '
+            'oklahoman.com/entertainment, and 405magazine.com/events for '
+            'newly announced events, restaurant openings, gallery shows, '
+            'concerts, pop-ups, and festivals in OKC. '
+            'Today is {today}. Return events occurring within the next 60 days.'
+        )
+    },
+    'freepressokc': {
+        'label': 'OKC Free Press Events Calendar',
+        'system': (
+            'You find upcoming events listed on the Oklahoma City Free Press events calendar. '
+            'Search freepressokc.com/eventscalendar for community events, arts performances, '
+            'film screenings, music shows, literary events, and local happenings in OKC. '
+            'Today is {today}. Return events for and the next 60 days.'
+        )
+    },
+    'eventbrite_okc': {
+        'label': 'Eventbrite OKC',
+        'system': (
+            'You find quality upcoming in-person community events in Oklahoma City listed on Eventbrite. '
+            'Browse https://www.eventbrite.com/d/ok--oklahoma-city/events/ and apply strict quality filtering: '
+            'in-person OKC events only, open to the public, genuinely community-relevant (arts, music, food, '
+            'fitness, festivals, cultural, family, charity, civic). Skip events already covered by dedicated '
+            'sources (Thunder games, Tower Theatre, Civic Center Broadway, OKCMOA, Myriad Gardens). '
+            'Skip MLM, vague networking, or spammy events. Aim for 8-15 high-quality events. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'concerts': {
+        'label': 'OKC Live Music Roundup',
+        'system': (
+            'You find live music and concert events across Oklahoma City venues. '
+            'Search visitokc.com/events/concerts-live-music for the full OKC '
+            'concert calendar. Check upcoming shows at Jones Assembly, Tower '
+            'Theatre, Criterion, Beer City Music Hall, Zoo Amphitheatre, '
+            'Diamond Ballroom, 89th Street, Blue Door, Prairie OKC, '
+            'Resonant Head, and all OKC music venues. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+}
+
+
+# ââ GOOGLE SHEETS API ââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+def fetch_sheet_data(action):
+    """Fetch data from Google Sheet via Apps Script GET endpoint."""
+    url = GOOGLE_SHEET_URL + "?action=" + action
+    try:
+        req = urllib.request.Request(url, method="GET")
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+        if isinstance(data, list):
+            return data
+        print(f"  Warning: {action} returned non-list: {str(data)[:200]}")
+        return []
+    except Exception as e:
+        print(f"  Error fetching {action}: {e}")
+        return []
+
+
+def append_events_to_sheet(events):
+    """Send new events to Google Sheet via POST (appends to Events tab)."""
+    if not events:
+        return
+    try:
+        payload = json.dumps({
+            "action": "append_events",
+            "events": events
+        }).encode()
+        req = urllib.request.Request(
+            GOOGLE_SHEET_URL,
+            data=payload,
+            headers={"Content-Type": "application/json"},
+            method="POST"
+        )
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            result = json.loads(resp.read())
+            print(f"  Sheet append result: {result.get('status', 'unknown')}")
+    except Exception as e:
+        print(f"  Warning: Could not append to sheet: {e}")
+        print("  Events will still be written to JSON files")
+
+
+# ââ ANTHROPIC API ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+def call_api(system_prompt, retries=2):
+    """Call Anthropic API with web search tool and return text response."""
+    payload = json.dumps({
+        "model": "claude-sonnet-4-20250514",
+        "max_tokens": 2000,
+        "tools": [{"type": "web_search_20250305", "name": "web_search"}],
+        "system": system_prompt + JSON_INSTRUCTION,
+        "messages": [{
+            "role": "user",
+            "content": (
+                "Use your web search tool right now to find real upcoming events "
+                "from this source. Search the actual website URLs mentioned. "
+                "Return only the JSON array of events."
+            )
+        }]
+    }).encode()
+
+    req = urllib.request.Request(
+        "https://api.anthropic.com/v1/messages",
+        data=payload,
+        headers={
+            "Content-Type": "application/json",
+            "x-api-key": API_KEY,
+            "anthropic-version": "2023-06-01",
+            "anthropic-beta": "web-search-2025-03-05"
+        },
+        method="POST"
+    )
+
+    for attempt in range(retries + 1):
+        try:
+            with urllib.request.urlopen(req, timeout=90) as resp:
+                data = json.loads(resp.read())
+                text = ""
+                for block in data.get("content", []):
+                    if block.get("type") == "text":
+                        text += block.get("text", "")
+                return text
+        except urllib.error.HTTPError as e:
+            body = e.read().decode()
+            print(f"    HTTP {e.code}: {body[:200]}")
+            if e.code in (529, 503, 500) and attempt < retries:
+                wait = 30 * (attempt + 1)
+                print(f"    Retrying in {wait}s...")
+                time.sleep(wait)
+            else:
+                return None
+        except Exception as e:
+            print(f"    Error: {e}")
+            if attempt < retries:
+                time.sleep(15)
+            else:
+                return None
+    return None
+
+
+# ââ PARSING & DEDUP ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+def apply_dual_tags(ev):
+    """Auto-apply cat2 based on keyword rules for crossover events."""
+    text = (ev.get("name", "") + " " + ev.get("desc", "")).lower()
+    for cat2, rule in DUAL_TAG_RULES.items():
+        if ev.get("cat") in rule['from_cats'] and cat2 != ev.get("cat"):
+            for kw in rule['keywords']:
+                if kw in text:
+                    ev['cat2'] = cat2
+                    return ev
+    return ev
+
+
+def parse_events(text, source_label):
+    """Extract and validate JSON event array from API response."""
+    if not text:
+        return []
+
+    text = re.sub(r'```(?:json)?', '', text).strip()
+    start = text.find("[")
+    end = text.rfind("]")
+    if start == -1 or end == -1:
+        return []
+
+    try:
+        events = json.loads(text[start:end + 1])
+        valid = []
+        for ev in events:
+            if not isinstance(ev, dict):
+                continue
+            if not ev.get("name") or not ev.get("date"):
+                continue
+            try:
+                date_str = str(ev["date"]).strip()
+                if len(date_str) < 10 or date_str < CUTOFF:
+                    continue
+                ev["date"] = date_str[:10]
+            except Exception:
+                continue
+
+            ev["source"] = ev.get("source") or source_label
+            ev["confirmed"] = bool(ev.get("confirmed", False))
+            ev["free"] = bool(ev.get("free", False))
+            ev["tickets"] = str(ev.get("tickets") or "").strip()
+            ev["district"] = str(ev.get("district") or "").strip()
+
+            cat = str(ev.get("cat", "fest")).lower().strip()
+            ev["cat"] = cat if cat in VALID_CATS else "fest"
+
+            cat2 = str(ev.get("cat2", "")).lower().strip()
+            if cat2 and cat2 in VALID_CATS and cat2 != ev["cat"]:
+                ev["cat2"] = cat2
+            else:
+                ev.pop("cat2", None)
+
+            ev = apply_dual_tags(ev)
+
+            for field in ("name", "venue", "desc", "source", "district"):
+                ev[field] = str(ev.get(field, "")).strip()
+
+            valid.append(ev)
+        return valid
+    except json.JSONDecodeError as e:
+        print(f"    JSON parse error: {e}")
+        return []
+
+
+def dedup_events(new_events, existing_keys):
+    """Remove events already known by name+date key."""
+    seen = set()
+    result = []
+    for ev in new_events:
+        key = (ev["name"].lower().strip()[:60], ev.get("date", ""))
+        if key not in existing_keys and key not in seen:
+            seen.add(key)
+            result.append(ev)
+    return result
+
+
+# ââ MAIN âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+def main():
+    print(f"=== OKC Calendar Agent (React) â {TODAY_STR} ===\n")
+
+    # ââ Step 1: Read current data from Google Sheets âââââââââââââââââââââââââ
+    print("[1] Fetching current data from Google Sheets...")
+    sheet_events = fetch_sheet_data("events")
+    sheet_hh = fetch_sheet_data("happyhours")
+    approved_subs = fetch_sheet_data("approved")
+    print(f"  Sheet has {len(sheet_events)} events, {len(sheet_hh)} happy hours, {len(approved_subs)} approved submissions")
+
+    # Build dedup keys from existing sheet events
+    existing_keys = set()
+    for ev in sheet_events:
+        name = str(ev.get("name", "")).lower().strip()[:60]
+        date = str(ev.get("date", ""))
+        existing_keys.add((name, date))
+
+    # ââ Step 2: Scrape new events from all sources âââââââââââââââââââââââââââ
+    print(f"\n[2] Running {len(SOURCES)} sources...\n")
+    all_new_events = []
+    failed_sources = []
+
+    for source_id, source_info in SOURCES.items():
+        label = source_info["label"]
+        system = source_info["system"].replace("{today}", TODAY_STR)
+
+        print(f"  [{label}]")
+        text = call_api(system)
+        if text is None:
+            print(f"    x Failed")
+            failed_sources.append(label)
+            time.sleep(2)
+            continue
+
+        events = parse_events(text, label)
+        new_events = dedup_events(events, existing_keys)
+        print(f"    Found {len(events)} -> {len(new_events)} new")
+
+        all_new_events.extend(new_events)
+        for ev in new_events:
+            existing_keys.add((ev["name"].lower().strip()[:60], ev.get("date", "")))
+        time.sleep(2)
+
+    # ââ Step 3: Add approved user submissions ââââââââââââââââââââââââââââââââ
+    approved_events = []
+    for sub in approved_subs:
+        if not sub.get("name") or not sub.get("date"):
+            continue
+        ev = {
+            "name": str(sub["name"]),
+            "venue": str(sub.get("venue", "")),
+            "date": str(sub["date"])[:10],
+            "desc": str(sub.get("description", "")),
+            "cat": str(sub.get("category", "culture")),
+            "confirmed": False,
+            "source": "User Submission",
+            "tickets": str(sub.get("url", "")),
+            "free": False,
+            "district": str(sub.get("district", ""))
+        }
+        approved_events.append(ev)
+
+    approved_new = dedup_events(approved_events, existing_keys)
+    if approved_new:
+        print(f"\n  Adding {len(approved_new)} approved user submissions")
+        all_new_events.extend(approved_new)
+
+    print(f"\n{'='*50}")
+    print(f"Total new events from scraping: {len(all_new_events)}")
+    if failed_sources:
+        print(f"Failed ({len(failed_sources)}): {', '.join(failed_sources)}")
+
+    # ââ Step 4: Write new events back to Google Sheet ââââââââââââââââââââââââ
+    if all_new_events:
+        print(f"\n[3] Appending {len(all_new_events)} new events to Google Sheet...")
+        append_events_to_sheet(all_new_events)
+
+    # ââ Step 5: Combine and export JSON files ââââââââââââââââââââââââââââââââ
+    print(f"\n[4] Exporting JSON files...")
+
+    # Merge: sheet events + newly scraped events = full event list
+    full_events = list(sheet_events)  # start with what's in the sheet
+
+    # Add new events (they may also have been appended to the sheet)
+    for ev in all_new_events:
+        # Normalize to match the React JSON format
+        full_events.append({
+            "name": ev.get("name", ""),
+            "venue": ev.get("venue", ""),
+            "date": ev.get("date", ""),
+            "desc": ev.get("desc", ""),
+            "cat": ev.get("cat", "fest"),
+            "confirmed": ev.get("confirmed", False),
+            "source": ev.get("source", ""),
+            "tickets": ev.get("tickets", "") or None,
+            "free": ev.get("free", False),
+            "district": ev.get("district", ""),
+            **({"cat2": ev["cat2"]} if ev.get("cat2") else {})
+        })
+
+    # Remove past events and sort
+    full_events = [
+        ev for ev in full_events
+        if ev.get("date", "") >= CUTOFF and ev.get("name")
+    ]
+    full_events.sort(key=lambda e: (e.get("date", ""), e.get("name", "")))
+
+    # Deduplicate the final list
+    seen = set()
+    deduped = []
+    for ev in full_events:
+        key = (str(ev.get("name", "")).lower().strip()[:60], ev.get("date", ""))
+        if key not in seen:
+            seen.add(key)
+            deduped.append(ev)
+    full_events = deduped
+
+    # Write events.json
+    with open(EVENTS_JSON_PATH, "w", encoding="utf-8") as f:
+        json.dump(full_events, f, indent=2, ensure_ascii=False)
+    print(f"  Wrote {len(full_events)} events to {EVENTS_JSON_PATH}")
+
+    # Write happyHours.json (convert from sheet format to compact format)
+    hh_list = []
+    for hh in sheet_hh:
+        entry = {
+            "n": str(hh.get("name", "")),
+            "v": str(hh.get("venue", "")),
+            "t": str(hh.get("time", "Varies")),
+        }
+
+        # Parse days: "0,1,2,3,4" -> [0,1,2,3,4]
+        days_raw = hh.get("days", "")
+        if isinstance(days_raw, str) and days_raw.strip():
+            try:
+                entry["d"] = [int(d.strip()) for d in days_raw.split(",") if d.strip()]
+            except ValueError:
+                entry["d"] = [0, 1, 2, 3, 4]
+        elif isinstance(days_raw, list):
+            entry["d"] = days_raw
+        else:
+            entry["d"] = [0, 1, 2, 3, 4]
+
+        if hh.get("desc"):
+            entry["desc"] = str(hh["desc"])
+        if hh.get("url"):
+            entry["url"] = str(hh["url"])
+        if hh.get("patio"):
+            entry["patio"] = True
+        if hh.get("rooftop"):
+            entry["rooftop"] = True
+
+        hh_list.append(entry)
+
+    if hh_list:
+        with open(HH_JSON_PATH, "w", encoding="utf-8") as f:
+            json.dump(hh_list, f, indent=2, ensure_ascii=False)
+        print(f"  Wrote {len(hh_list)} happy hours to {HH_JSON_PATH}")
+    else:
+        print("  No happy hours from sheet â keeping existing JSON file")
+
+    # ââ Step 6: Write agent log ââââââââââââââââââââââââââââââââââââââââââââââ
+    log_entry = {
+        "date": TODAY.isoformat(),
+        "sources_run": len(SOURCES),
+        "failed_sources": failed_sources,
+        "new_events_scraped": len(all_new_events),
+        "total_events_exported": len(full_events),
+        "total_hh_exported": len(hh_list),
+        "approved_submissions": len(approved_new),
+        "validation": {"passed": True}
+    }
+    log_path = "agent_log.json"
+    try:
+        with open(log_path, "r") as f:
+            logs = json.load(f)
+    except Exception:
+        logs = []
+    logs.append(log_entry)
+    logs = logs[-90:]
+    with open(log_path, "w") as f:
+        json.dump(logs, f, indent=2)
+
+    print(f"\nDone! {len(full_events)} events + {len(hh_list)} HH exported.")
+    print(f"Git commit will trigger Vercel rebuild.")
+
+
+if __name__ == "__main__":
+    main()
