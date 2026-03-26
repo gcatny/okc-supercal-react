@@ -25,25 +25,27 @@ import { ALL_CATS } from './data/categories';
 import { HH_DISTRICT_MAP } from './data/districts';
 
 // Utils
-import { catMatch, passesHHFilter, generateHappyHourEvents } from './utils/eventUtils';
+import { catMatch, passesHHFilter, generateHappyHourEvents, expandCanonicalEvents } from './utils/eventUtils';
 import { voteKey } from './utils/eventUtils';
 
-// Import data - these will be JSON files the nightly agent produces
+// Import data - canonical events (one row per unique event, with recurrence rules)
 import eventsData from './data/events.json';
 import happyHoursData from './data/happyHours.json';
 
 export default function App() {
-  // Build the full events list (base events + generated HH events)
+  // Expand canonical events into flat date instances, then merge with HH events.
+  // expandCanonicalEvents generates a 14-month rolling window so all calendar
+  // months render correctly without re-computation on navigation.
   const allEventsRaw = useMemo(() => {
     try {
-      const base = Array.isArray(eventsData) ? [...eventsData] : [];
+      const base = expandCanonicalEvents(eventsData);
       const hhEvents = generateHappyHourEvents(happyHoursData, HH_DISTRICT_MAP);
       return [...base, ...hhEvents]
         .filter(ev => ev && ev.date && ev.name)
         .sort((a, b) => (a.date || '') < (b.date || '') ? -1 : 1);
     } catch (err) {
       console.error('Error building events list:', err);
-      return Array.isArray(eventsData) ? [...eventsData] : [];
+      return [];
     }
   }, []);
 
