@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-OKC Super Calendar â Nightly Event Agent (React Version)
+OKC Super Calendar — Nightly Event Agent (React Version)
 
 Runs via GitHub Actions every night at 2 AM Central (8 AM UTC).
 
@@ -10,7 +10,7 @@ Data flow:
   3. Deduplicates new events against what's already in the sheet
   4. Writes new events back to the Google Sheet "Events" tab
   5. Exports full Events + Happy Hours tabs as JSON files
-  6. Commits JSON files to the React repo â triggers Vercel rebuild
+  6. Commits JSON files to the React repo → triggers Vercel rebuild
 
 Supports dual-category tagging (cat + cat2) for crossover events.
 """
@@ -35,7 +35,7 @@ CUTOFF = TODAY.isoformat()
 EVENTS_JSON_PATH = "src/data/events.json"
 HH_JSON_PATH = "src/data/happyHours.json"
 
-# ââ VALID CATEGORIES ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+# ── VALID CATEGORIES ──────────────────────────────────────────────────────────
 VALID_CATS = {
     'art', 'music', 'food', 'sports', 'fest', 'theater', 'comedy',
     'film', 'free', 'family', 'culture', 'running', 'civic',
@@ -64,7 +64,7 @@ JSON_INSTRUCTION = (
     "culture|running|civic|industry|convention|volunteer|happyhour|fundraiser|fashion|farmersmarket), "
     "confirmed (true/false), source (string), "
     "tickets (URL string or empty string), free (true/false), "
-    "district (string â use one of: Downtown / City Center, Bricktown, Midtown, "
+    "district (string — use one of: Downtown / City Center, Bricktown, Midtown, "
     "Plaza District, Paseo Arts District, Automobile Alley, Deep Deuce, "
     "Uptown 23rd, Western Avenue, Classen Curve / OAK, Film Row / West Village, "
     "Adventure District, Boathouse District, Capitol Hill, Stockyards City, "
@@ -74,8 +74,8 @@ JSON_INSTRUCTION = (
     "Return array starting with [ and ending with ]. No other text."
 )
 
-# ââ SOURCES âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-# (Exact same SOURCES dict from the original agent â preserved in full)
+# ── SOURCES ───────────────────────────────────────────────────────────────────
+# (Exact same SOURCES dict from the original agent — preserved in full)
 
 SOURCES = {
     'plaza': {
@@ -234,7 +234,7 @@ SOURCES = {
             'thenationalokc.com/events in Oklahoma City (120 N Robinson Ave). '
             'Search for all upcoming events including Afternoon Tea: RoyalTEA, '
             'Live Music at The Vault, Sunday Jazz Brunch at Tellers, '
-            'wine dinners at Stock & Bone, and all special dining experiences. '
+            'wine dinners at Stock & Bond, and all special dining experiences. '
             'Today is {today}. Return all events for the next 90 days.'
         )
     },
@@ -357,7 +357,7 @@ SOURCES = {
         )
     },
     'okc_thunder': {
-        'label': 'OKC Thunder â NBA Schedule',
+        'label': 'OKC Thunder — NBA Schedule',
         'system': (
             'You find upcoming OKC Thunder home games at Paycom Center (100 W Reno Ave, OKC). '
             'Search nba.com/thunder/schedule or ticketmaster.com/oklahoma-city-thunder-tickets '
@@ -414,12 +414,12 @@ SOURCES = {
             'You find upcoming pickleball tournaments in the Oklahoma City metro area. '
             'Search allpickleballtournaments.com for Oklahoma City pickleball events. '
             'Also check chickennpickle.com/oklahoma-city-events. '
-            'OKC metro only â within 25 miles of downtown OKC. '
+            'OKC metro only — within 25 miles of downtown OKC. '
             'Today is {today}. Return events for the next 180 days.'
         )
     },
     'usta_okc': {
-        'label': 'OKC Tennis Center â USTA Tournaments',
+        'label': 'OKC Tennis Center — USTA Tournaments',
         'system': (
             'You find upcoming tennis tournaments at OKC Tennis Center (3400 N Portland Ave). '
             'Search playtennis.usta.com/oklahomacitytenniscenter/Tournaments for USTA events. '
@@ -438,7 +438,7 @@ SOURCES = {
         )
     },
     'oksportsfit': {
-        'label': 'OK Sports & Fitness â Running/Tri Calendar',
+        'label': 'OK Sports & Fitness — Running/Tri Calendar',
         'system': (
             'You find upcoming running races, triathlons, cycling events, and fitness events '
             'in the Oklahoma City metro area. Search oksportsandfitness.com/event-calendar. '
@@ -546,7 +546,6 @@ SOURCES = {
             'Search okcchamber.com/events for chamber luncheons, State Spotlight, '
             'Government Affairs breakfasts, networking events, award ceremonies, '
             'and Greater OKC Chamber programs. '
-            'Today is {today}. Return events for and the next 90 days.'
             'Today is {today}. Return events for the next 90 days.'
         )
     },
@@ -649,7 +648,7 @@ SOURCES = {
             'You find upcoming events at OAK Heartwood Park at 2124 NW Expressway, OKC. '
             'Search oakokc.com/events for the weekly OAK Farmers Market (Saturdays 9 AM-1 PM, '
             'April 25 through October 31), Junction Coffee Bus, art installations, and community events. '
-            'Today is {today}. Return events for and the next 180 days. Mark farmers market as free:true.'
+            'Today is {today}. Return events for the next 180 days. Mark farmers market as free:true.'
         )
     },
     'music_fests': {
@@ -683,6 +682,15 @@ SOURCES = {
             'Search okcconventioncenter.com/events for convention center events. '
             'Search for HorrorCon OKC, anime cons, and collector expos. '
             'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'kickiniton66': {
+        'label': "Kickin' It on Route 66",
+        'system': (
+            "You find upcoming events for the Route 66 Centennial in Oklahoma City. "
+            "Check kickiniton66.com for event schedules and updates around the "
+            "Kickin' It on Route 66: OKC Centennial Celebration at Scissortail Park on May 30, 2026. "
+            "Today is {today}. Return events for the next 180 days."
         )
     },
     'culture': {
@@ -805,7 +813,7 @@ SOURCES = {
             'You find upcoming events listed on the Oklahoma City Free Press events calendar. '
             'Search freepressokc.com/eventscalendar for community events, arts performances, '
             'film screenings, music shows, literary events, and local happenings in OKC. '
-            'Today is {today}. Return events for and the next 60 days.'
+            'Today is {today}. Return events for the next 60 days.'
         )
     },
     'eventbrite_okc': {
@@ -835,7 +843,7 @@ SOURCES = {
 }
 
 
-# ââ GOOGLE SHEETS API ââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+# ── GOOGLE SHEETS API ────────────────────────────────────────────────────────
 def fetch_sheet_data(action):
     """Fetch data from Google Sheet via Apps Script GET endpoint."""
     url = GOOGLE_SHEET_URL + "?action=" + action
@@ -852,14 +860,14 @@ def fetch_sheet_data(action):
         return []
 
 
-def append_events_to_sheet(events):
-    """Send new events to Google Sheet via POST (appends to Events tab)."""
-    if not events:
+def upsert_events_to_sheet(canonical_events):
+    """Send canonical events to Google Sheet via POST (upserts — skips existing)."""
+    if not canonical_events:
         return
     try:
         payload = json.dumps({
-            "action": "append_events",
-            "events": events
+            "action": "upsert_events",
+            "events": canonical_events
         }).encode()
         req = urllib.request.Request(
             GOOGLE_SHEET_URL,
@@ -869,13 +877,20 @@ def append_events_to_sheet(events):
         )
         with urllib.request.urlopen(req, timeout=30) as resp:
             result = json.loads(resp.read())
-            print(f"  Sheet append result: {result.get('status', 'unknown')}")
+            inserted = result.get("inserted", "?")
+            skipped  = result.get("skipped", "?")
+            print(f"  Sheet upsert: {inserted} new, {skipped} already existed")
     except Exception as e:
-        print(f"  Warning: Could not append to sheet: {e}")
+        print(f"  Warning: Could not upsert to sheet: {e}")
         print("  Events will still be written to JSON files")
 
 
-# ââ ANTHROPIC API ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+# Keep old name as alias for backward compatibility
+def append_events_to_sheet(events):
+    upsert_events_to_sheet(events)
+
+
+# ── ANTHROPIC API ────────────────────────────────────────────────────────────
 def call_api(system_prompt, retries=2):
     """Call Anthropic API with web search tool and return text response."""
     payload = json.dumps({
@@ -932,7 +947,7 @@ def call_api(system_prompt, retries=2):
     return None
 
 
-# ââ PARSING & DEDUP ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+# ── PARSING & DEDUP ──────────────────────────────────────────────────────────
 def apply_dual_tags(ev):
     """Auto-apply cat2 based on keyword rules for crossover events."""
     text = (ev.get("name", "") + " " + ev.get("desc", "")).lower()
@@ -999,43 +1014,139 @@ def parse_events(text, source_label):
         return []
 
 
+def ven_short(v):
+    """Return just the venue name before the first comma, lowercased."""
+    return (v or "").split(",")[0].strip().lower()[:60]
+
+
 def dedup_events(new_events, existing_keys):
-    """Remove events already known by name+date key."""
+    """Remove events already known by canonical name+venue key (not date).
+
+    By keying on name+venue instead of name+date, a recurring event like
+    'OKC Improv — Friday Night Shows' is only kept once regardless of how
+    many dates the scraper found for it. The nightly agent stores one
+    canonical row per unique event, not one row per occurrence.
+    """
     seen = set()
     result = []
     for ev in new_events:
-        key = (ev["name"].lower().strip()[:60], ev.get("date", ""))
+        # Canonical key: (name_short, venue_short)
+        key = (ev.get("name", "").lower().strip()[:60], ven_short(ev.get("venue", "")))
         if key not in existing_keys and key not in seen:
             seen.add(key)
             result.append(ev)
     return result
 
 
-# ââ MAIN âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+def to_canonical(flat_events):
+    """Convert a list of flat (one-per-date) events into canonical format.
+
+    Groups events by (name, venue_short) and detects the recurrence pattern
+    from the set of dates found.  Returns one canonical dict per unique event.
+    """
+    from collections import defaultdict
+
+    groups = defaultdict(list)
+    for ev in flat_events:
+        key = (ev.get("name", "").lower().strip()[:60], ven_short(ev.get("venue", "")))
+        groups[key].append(ev)
+
+    DAY_ABBR = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]  # 0=Mon…6=Sun
+    canonical = []
+
+    for (name_low, venue_low), items in groups.items():
+        template = items[0]
+        dates = sorted(set(ev.get("date", "") for ev in items if ev.get("date")))
+        if not dates:
+            continue
+
+        start_date = dates[0]
+        end_date   = dates[-1]
+
+        # Detect recurrence
+        recurrence = "none"
+        days_list  = []
+
+        if len(dates) > 1:
+            import datetime as _dt
+            dts = [_dt.date.fromisoformat(d) for d in dates]
+            dow_set = set(d.weekday() for d in dts)  # 0=Mon
+
+            # Check consistent weekly pattern
+            by_dow = defaultdict(list)
+            for d in dts:
+                by_dow[d.weekday()].append(d)
+
+            is_weekly = all(
+                (by_dow[dow][i+1] - by_dow[dow][i]).days == 7
+                for dow in by_dow
+                for i in range(len(by_dow[dow]) - 1)
+            )
+
+            if len(dow_set) == 7:
+                recurrence = "daily"
+            elif is_weekly:
+                recurrence = "weekly"
+                days_list  = [DAY_ABBR[d] for d in sorted(dow_set)]
+            else:
+                recurrence = "weekly"  # best guess
+                days_list  = [DAY_ABBR[d] for d in sorted(dow_set)]
+
+        import re as _re
+        slug = _re.sub(r"[^a-z0-9]+", "-",
+                       (template.get("name","") + "-" + ven_short(template.get("venue",""))).lower()
+                      ).strip("-")[:60]
+
+        canonical.append({
+            "id":         slug,
+            "name":       template.get("name", ""),
+            "venue":      template.get("venue", ""),
+            "district":   template.get("district", ""),
+            "cat":        template.get("cat", ""),
+            "cat2":       template.get("cat2", "") or None,
+            "recurrence": recurrence,
+            "days":       days_list,
+            "startDate":  start_date,
+            "endDate":    end_date,
+            "desc":       template.get("desc", ""),
+            "tickets":    template.get("tickets", ""),
+            "free":       bool(template.get("free", False)),
+            "confirmed":  bool(template.get("confirmed", False)),
+            "source":     template.get("source", ""),
+        })
+        # Remove None cat2
+        if canonical[-1]["cat2"] is None:
+            del canonical[-1]["cat2"]
+
+    return canonical
+
+
+# ── MAIN ─────────────────────────────────────────────────────────────────────
 def main():
-    print(f"=== OKC Calendar Agent (React) â {TODAY_STR} ===\n")
+    print(f"=== OKC Calendar Agent (React) — {TODAY_STR} ===\n")
 
-    # ââ Step 1: Read current data from Google Sheets âââââââââââââââââââââââââ
+    # ── Step 1: Read current canonical data from Google Sheets ───────────────
     print("[1] Fetching current data from Google Sheets...")
-    sheet_events = fetch_sheet_data("events")
-    sheet_hh = fetch_sheet_data("happyhours")
+    sheet_events  = fetch_sheet_data("events")    # canonical rows from sheet
+    sheet_hh      = fetch_sheet_data("happyhours")
     approved_subs = fetch_sheet_data("approved")
-    print(f"  Sheet has {len(sheet_events)} events, {len(sheet_hh)} happy hours, {len(approved_subs)} approved submissions")
+    print(f"  Sheet has {len(sheet_events)} canonical events, "
+          f"{len(sheet_hh)} happy hours, {len(approved_subs)} approved submissions")
 
-    # Build dedup keys from existing sheet events
+    # Build dedup keys: (name_short, venue_short) — canonical, not date-based
     existing_keys = set()
     for ev in sheet_events:
-        name = str(ev.get("name", "")).lower().strip()[:60]
-        date = str(ev.get("date", ""))
-        existing_keys.add((name, date))
+        name  = str(ev.get("name", "")).lower().strip()[:60]
+        venue = ven_short(ev.get("venue", ""))
+        existing_keys.add((name, venue))
 
-    # ââ Step 2: Scrape new events from all sources âââââââââââââââââââââââââââ
+    # ── Step 2: Scrape new events from all sources ───────────────────────────
     print(f"\n[2] Running {len(SOURCES)} sources...\n")
-    all_new_events = []
-    failed_sources = []
+    all_scraped_flat = []   # raw flat events as returned by the AI
+    failed_sources   = []
 
     for source_id, source_info in SOURCES.items():
-        label = source_info["label"]
+        label  = source_info["label"]
         system = source_info["system"].replace("{today}", TODAY_STR)
 
         print(f"  [{label}]")
@@ -1046,93 +1157,77 @@ def main():
             time.sleep(2)
             continue
 
-        events = parse_events(text, label)
+        events     = parse_events(text, label)
         new_events = dedup_events(events, existing_keys)
-        print(f"    Found {len(events)} -> {len(new_events)} new")
+        print(f"    Found {len(events)} event-dates -> {len(new_events)} new unique events")
 
-        all_new_events.extend(new_events)
+        all_scraped_flat.extend(new_events)
         for ev in new_events:
-            existing_keys.add((ev["name"].lower().strip()[:60], ev.get("date", "")))
+            existing_keys.add((ev.get("name","").lower().strip()[:60], ven_short(ev.get("venue",""))))
         time.sleep(2)
 
-    # ââ Step 3: Add approved user submissions ââââââââââââââââââââââââââââââââ
-    approved_events = []
+    # ── Step 3: Add approved user submissions ────────────────────────────────
+    approved_new = []
     for sub in approved_subs:
         if not sub.get("name") or not sub.get("date"):
             continue
         ev = {
-            "name": str(sub["name"]),
-            "venue": str(sub.get("venue", "")),
-            "date": str(sub["date"])[:10],
-            "desc": str(sub.get("description", "")),
-            "cat": str(sub.get("category", "culture")),
+            "name":      str(sub["name"]),
+            "venue":     str(sub.get("venue", "")),
+            "date":      str(sub["date"])[:10],
+            "desc":      str(sub.get("description", "")),
+            "cat":       str(sub.get("category", "culture")),
             "confirmed": False,
-            "source": "User Submission",
-            "tickets": str(sub.get("url", "")),
-            "free": False,
-            "district": str(sub.get("district", ""))
+            "source":    "User Submission",
+            "tickets":   str(sub.get("url", "")),
+            "free":      False,
+            "district":  str(sub.get("district", ""))
         }
-        approved_events.append(ev)
+        approved_new.append(ev)
 
-    approved_new = dedup_events(approved_events, existing_keys)
+    approved_new = dedup_events(approved_new, existing_keys)
     if approved_new:
         print(f"\n  Adding {len(approved_new)} approved user submissions")
-        all_new_events.extend(approved_new)
+        all_scraped_flat.extend(approved_new)
 
     print(f"\n{'='*50}")
-    print(f"Total new events from scraping: {len(all_new_events)}")
+    print(f"Total new unique events from scraping: {len(all_scraped_flat)}")
     if failed_sources:
         print(f"Failed ({len(failed_sources)}): {', '.join(failed_sources)}")
 
-    # ââ Step 4: Write new events back to Google Sheet ââââââââââââââââââââââââ
-    if all_new_events:
-        print(f"\n[3] Appending {len(all_new_events)} new events to Google Sheet...")
-        append_events_to_sheet(all_new_events)
+    # ── Step 4: Convert flat scraped events → canonical, upsert to Sheet ─────
+    new_canonical = to_canonical(all_scraped_flat)
+    if new_canonical:
+        print(f"\n[3] Upserting {len(new_canonical)} canonical events to Google Sheet...")
+        upsert_events_to_sheet(new_canonical)
 
-    # ââ Step 5: Combine and export JSON files ââââââââââââââââââââââââââââââââ
-    print(f"\n[4] Exporting JSON files...")
+    # ── Step 5: Merge sheet + new events, export canonical events.json ────────
+    print(f"\n[4] Exporting canonical JSON files...")
 
-    # Merge: sheet events + newly scraped events = full event list
-    full_events = list(sheet_events)  # start with what's in the sheet
+    # Combine sheet events (already canonical) with freshly-scraped canonical events.
+    # Dedup again by (name, venue_short) to avoid any overlap.
+    combined = {
+        (str(ev.get("name","")).lower().strip()[:60], ven_short(ev.get("venue",""))): ev
+        for ev in sheet_events
+    }
+    for ev in new_canonical:
+        key = (str(ev.get("name","")).lower().strip()[:60], ven_short(ev.get("venue","")))
+        combined[key] = ev   # new scrape wins if same key
 
-    # Add new events (they may also have been appended to the sheet)
-    for ev in all_new_events:
-        # Normalize to match the React JSON format
-        full_events.append({
-            "name": ev.get("name", ""),
-            "venue": ev.get("venue", ""),
-            "date": ev.get("date", ""),
-            "desc": ev.get("desc", ""),
-            "cat": ev.get("cat", "fest"),
-            "confirmed": ev.get("confirmed", False),
-            "source": ev.get("source", ""),
-            "tickets": ev.get("tickets", "") or None,
-            "free": ev.get("free", False),
-            "district": ev.get("district", ""),
-            **({"cat2": ev["cat2"]} if ev.get("cat2") else {})
-        })
+    full_events = list(combined.values())
 
-    # Remove past events and sort
+    # Drop events whose endDate is before today (expired)
     full_events = [
         ev for ev in full_events
-        if ev.get("date", "") >= CUTOFF and ev.get("name")
+        if (ev.get("endDate") or ev.get("startDate") or "9999") >= CUTOFF
+        and ev.get("name")
     ]
-    full_events.sort(key=lambda e: (e.get("date", ""), e.get("name", "")))
+    full_events.sort(key=lambda e: (e.get("startDate",""), e.get("name","")))
 
-    # Deduplicate the final list
-    seen = set()
-    deduped = []
-    for ev in full_events:
-        key = (str(ev.get("name", "")).lower().strip()[:60], ev.get("date", ""))
-        if key not in seen:
-            seen.add(key)
-            deduped.append(ev)
-    full_events = deduped
-
-    # Write events.json
+    # Write canonical events.json (React expands at render time)
     with open(EVENTS_JSON_PATH, "w", encoding="utf-8") as f:
         json.dump(full_events, f, indent=2, ensure_ascii=False)
-    print(f"  Wrote {len(full_events)} events to {EVENTS_JSON_PATH}")
+    print(f"  Wrote {len(full_events)} canonical events to {EVENTS_JSON_PATH}")
 
     # Write happyHours.json (convert from sheet format to compact format)
     hh_list = []
@@ -1171,14 +1266,14 @@ def main():
             json.dump(hh_list, f, indent=2, ensure_ascii=False)
         print(f"  Wrote {len(hh_list)} happy hours to {HH_JSON_PATH}")
     else:
-        print("  No happy hours from sheet â keeping existing JSON file")
+        print("  No happy hours from sheet — keeping existing JSON file")
 
-    # ââ Step 6: Write agent log ââââââââââââââââââââââââââââââââââââââââââââââ
+    # ── Step 6: Write agent log ──────────────────────────────────────────────
     log_entry = {
         "date": TODAY.isoformat(),
         "sources_run": len(SOURCES),
         "failed_sources": failed_sources,
-        "new_events_scraped": len(all_new_events),
+        "new_events_scraped": len(all_scraped_flat),
         "total_events_exported": len(full_events),
         "total_hh_exported": len(hh_list),
         "approved_submissions": len(approved_new),
