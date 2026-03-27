@@ -11,29 +11,34 @@ export const DISTRICTS = [
   "Deep Deuce",
   "Downtown / City Center",
   "East End District",
-  "Edmond",
   "Farmers Market District",
   "Film Row / West Village",
   "Lake Hefner",
   "Midtown",
-  "Midwest City",
-  "Moore",
-  "Mustang",
-  "Norman",
-  "OKC State Capitol",
-  "Stillwater",
   "NW OKC",
+  "OKC State Capitol",
   "Paseo Arts District",
   "Plaza District",
+  "South OKC",
   "Stockyards City",
   "The Village",
   "Uptown 23rd",
   "Western Avenue",
-  "South OKC",
-  "Tulsa",
-  "Out of Town",
-  "Yukon",
   "Wheeler District"
+];
+
+export const OTHER_CITIES = [
+  "Edmond",
+  "Guthrie",
+  "Midwest City",
+  "Moore",
+  "Mustang",
+  "Norman",
+  "Out of Town",
+  "Pryor",
+  "Stillwater",
+  "Tulsa",
+  "Yukon"
 ];
 
 export const HH_DISTRICT_MAP = {
@@ -83,5 +88,7 @@ export const HH_DISTRICT_MAP = {
   "Tulsa": "Tulsa",
   "Out of Town": "Out of Town",
   "Yukon": "Yukon",
-  "OKC State Capitol": "OKC State Capitol"
+  "OKC State Capitol": "OKC State Capitol",
+  "Guthrie": "Guthrie",
+  "Pryor": "Pryor"
 };
