@@ -71,7 +71,7 @@ jobs:
           try:
               with open('src/data/events.json') as f:
                   events = json.load(f)
-              print(f'â events.json: {len(events)} events, valid JSON')
+              print(f'✓ events.json: {len(events)} events, valid JSON')
           except Exception as e:
               print(f'ERROR: events.json invalid: {e}')
               sys.exit(1)
@@ -79,7 +79,7 @@ jobs:
           try:
               with open('src/data/happyHours.json') as f:
                   hh = json.load(f)
-              print(f'â happyHours.json: {len(hh)} venues, valid JSON')
+              print(f'✓ happyHours.json: {len(hh)} venues, valid JSON')
           except Exception as e:
               print(f'WARNING: happyHours.json issue: {e}')
           "
@@ -92,7 +92,7 @@ jobs:
             echo "No changes to commit"
           else
             echo "changed=true" >> $GITHUB_OUTPUT
-            echo "Changes detected â will commit"
+            echo "Changes detected — will commit"
           fi
 
       - name: Commit and push changes
@@ -105,22 +105,22 @@ jobs:
 
           DATE=$(date "+%B %d, %Y")
           if [ "$IS_MONDAY" = "true" ]; then
-            git commit -m "ðï¸ Weekly update â $DATE [Monday report]"
+            git commit -m "🗓️ Weekly update — $DATE [Monday report]"
           else
-            git commit -m "ðï¸ Nightly update â $DATE"
+            git commit -m "🗓️ Nightly update — $DATE"
           fi
 
           git push
 
-      - name: No changes â still log
+      - name: No changes — still log
         if: steps.diff.outputs.changed == 'false'
         run: |
-          echo "Calendar is up to date â no new events found tonight"
+          echo "Calendar is up to date — no new events found tonight"
 
       - name: Write step summary (always)
         if: always()
         run: |
-          echo "## OKC Calendar Agent Run â $(date '+%B %d, %Y')" >> $GITHUB_STEP_SUMMARY
+          echo "## OKC Calendar Agent Run — $(date '+%B %d, %Y')" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
           if [ -f agent_log.json ]; then
