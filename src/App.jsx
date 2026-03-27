@@ -22,7 +22,7 @@ import { useVoting } from './hooks/useVoting';
 
 // Data
 import { ALL_CATS } from './data/categories';
-import { HH_DISTRICT_MAP } from './data/districts';
+import { HH_DISTRICT_MAP, OTHER_CITIES } from './data/districts';
 
 // Utils
 import { catMatch, passesHHFilter, generateHappyHourEvents, expandCanonicalEvents } from './utils/eventUtils';
@@ -205,12 +205,29 @@ export default function App() {
         <div id="district-panel-mobile">
           <div style={{ padding: '10px 12px 8px', fontFamily: "'Bebas Neue', sans-serif", fontSize: '14px', letterSpacing: '.07em', color: 'var(--text)', borderBottom: '1px solid var(--border)' }}>Districts</div>
           <div style={{ overflowY: 'auto', flex: 1, padding: '4px 0' }}>
-            {Object.entries(districtCounts).filter(([,c]) => c > 0).sort((a,b) => a[0].localeCompare(b[0])).map(([dist, count]) => (
-              <div key={dist} className={`dist-item${districtActive === dist ? ' dist-active' : ''}`} onClick={() => toggleDistrict(dist)}>
-                <span className="dist-name">{dist}</span>
-                <span className="dist-count">{count}</span>
-              </div>
-            ))}
+            {Object.entries(districtCounts)
+              .filter(([dist, c]) => c > 0 && !OTHER_CITIES.includes(dist))
+              .sort((a,b) => a[0].localeCompare(b[0]))
+              .map(([dist, count]) => (
+                <div key={dist} className={`dist-item${districtActive === dist ? ' dist-active' : ''}`} onClick={() => toggleDistrict(dist)}>
+                  <span className="dist-name">{dist}</span>
+                  <span className="dist-count">{count}</span>
+                </div>
+              ))}
+            {Object.entries(districtCounts).some(([dist, c]) => c > 0 && OTHER_CITIES.includes(dist)) && (
+              <>
+                <div style={{ padding: '8px 12px 4px', fontFamily: "'Bebas Neue', sans-serif", fontSize: '12px', letterSpacing: '.07em', color: 'var(--text-muted, #888)', borderTop: '1px solid var(--border)', marginTop: '4px' }}>Other Cities</div>
+                {Object.entries(districtCounts)
+                  .filter(([dist, c]) => c > 0 && OTHER_CITIES.includes(dist))
+                  .sort((a,b) => a[0].localeCompare(b[0]))
+                  .map(([dist, count]) => (
+                    <div key={dist} className={`dist-item${districtActive === dist ? ' dist-active' : ''}`} onClick={() => toggleDistrict(dist)}>
+                      <span className="dist-name">{dist}</span>
+                      <span className="dist-count">{count}</span>
+                    </div>
+                  ))}
+              </>
+            )}
           </div>
         </div>
       </div>
