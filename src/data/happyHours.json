@@ -2,6 +2,7 @@
   {
     "n": "Bricktown Brewery – Edmond (2nd Street)",
     "v": "Edmond",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -9,13 +10,13 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Mon–Fri 3–6 PM; Bricktown brews $3.75 and 6-packs to go $15 (official cocktail menu PDF indexed from Bricktown Brewery)",
     "url": "https://bricktownbrewery.com/wp-content/uploads/2025/06/Mustang-Cocktail-Menu.pdf"
   },
   {
     "n": "The Lookout Kitchen – Edmond",
     "v": "Edmond",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -23,13 +24,13 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. $3 Coors Banquet / Pacifico / Yuengling, $5 house wine, $6 club specials, select snacks and wings specials",
     "url": "https://www.thelookoutedmond.com/specials"
   },
   {
     "n": "The Mule – Downtown Edmond",
     "v": "Edmond",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -37,7 +38,6 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. $3 pint any domestic draft, $5 wine & sangria, beer/cocktail of the day, bar snacks",
     "url": "https://edmond.themuleokc.com/edmond-downtown-edmond-the-mule-edmond-happy-hour-specials",
     "patio": true
@@ -45,6 +45,7 @@
   {
     "n": "Charleston’s Restaurant – Edmond",
     "v": "Edmond",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -52,13 +53,13 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Mon–Fri social hour: premium well classic cocktails $8, wine feature $6 (6oz) / $9 (9oz), $1 off all beer, $2 off select starters",
     "url": "https://charlestons.com/wp-content/uploads/2019/02/CHA-2025-Menu-SocialHour-All-Web.pdf"
   },
   {
     "n": "Louie’s Grill & Bar – Edmond",
     "v": "Edmond",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -68,13 +69,13 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Louie’s House Wines: $5 glass or $20 bottle during social hour",
     "url": "https://louiesgrillandbar.com/locations/edmond/"
   },
   {
     "n": "Pub W – Edmond",
     "v": "Edmond",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -84,26 +85,26 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Drafts / featured cocktails / house wines start at $4.95 at 3 PM, $5.95 at 4 PM, $6.95 at 5 PM; $1 off Oklahoma drafts; $1 off domestics; select food …",
     "url": "https://pubdub.com/"
   },
   {
     "n": "Sinaloa Signature Restaurante – Edmond",
     "v": "Edmond",
+    "t": "1–4 PM",
     "d": [
       0,
       1,
       2,
       3
     ],
-    "t": "1–4 PM",
     "desc": "Happy hour 1–4 PM. All beer 50% off during posted happy hour block",
     "url": "https://sinaloasignaturerestaurante.com/edmond-sinaloa-signature-restaurante-happy-hours-specials"
   },
   {
     "n": "Bricktown Brewery – Midwest City",
     "v": "Midwest City",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -111,13 +112,13 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Mon–Fri 3–6 PM; Bricktown brews $3.75 and 6-packs to go $15 (official cocktail menu PDF indexed from Bricktown Brewery)",
     "url": "https://bricktownbrewery.com/wp-content/uploads/2025/06/Mustang-Cocktail-Menu.pdf"
   },
   {
     "n": "Louie’s Grill & Bar – Midwest City",
     "v": "Midwest City",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -127,13 +128,13 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Louie’s House Wines: $5 glass or $20 bottle during social hour",
     "url": "https://louiesgrillandbar.com/locations/midwest-city/"
   },
   {
     "n": "Louie’s Grill & Bar – Moore",
     "v": "Moore",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -143,13 +144,13 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Louie’s House Wines: $5 glass or $20 bottle during social hour",
     "url": "https://louiesgrillandbar.com/locations/moore/"
   },
   {
     "n": "Bricktown Brewery – Mustang",
     "v": "Mustang",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -157,13 +158,13 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Mon–Fri 3–6 PM; Bricktown brews $3.75 and 6-packs to go $15 (official cocktail menu PDF indexed from Bricktown Brewery)",
     "url": "https://bricktownbrewery.com/wp-content/uploads/2025/06/Mustang-Cocktail-Menu.pdf"
   },
   {
     "n": "Louie’s Grill & Bar – Norman Brookhaven",
     "v": "Norman",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -173,13 +174,13 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Louie’s House Wines: $5 glass or $20 bottle during social hour",
     "url": "https://louiesgrillandbar.com/locations/norman-brookhaven/"
   },
   {
     "n": "Louie’s Grill & Bar – Norman Campus Corner",
     "v": "Norman",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -189,13 +190,13 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Louie’s House Wines: $5 glass or $20 bottle during social hour",
     "url": "https://louiesgrillandbar.com/locations/norman-campus-corner/"
   },
   {
     "n": "Charleston’s Restaurant – Norman",
     "v": "Norman",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -203,13 +204,13 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Mon–Fri social hour: premium well classic cocktails $8, wine feature $6 (6oz) / $9 (9oz), $1 off all beer, $2 off select starters",
     "url": "https://charlestons.com/wp-content/uploads/2019/02/CHA-2025-Menu-SocialHour-All-Web.pdf"
   },
   {
     "n": "Pub W – Norman",
     "v": "Norman",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -219,26 +220,26 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Drafts / featured cocktails / house wines start at $4.95 at 3 PM, $5.95 at 4 PM, $6.95 at 5 PM; $1 off Oklahoma drafts; $1 off domestics; select food …",
     "url": "https://pubdub.com/"
   },
   {
     "n": "Doni Italian Restaurant – Norman",
     "v": "Norman",
+    "t": "All day Tuesday; 2–5 PM Wed–Fri",
     "d": [
       1,
       2,
       3,
       4
     ],
-    "t": "All day Tuesday; 2–5 PM Wed–Fri",
     "desc": "Happy hour All day Tuesday; 2–5 PM Wed–Fri. Draft beer $2.99, wine $5.75, select appetizers $1 off",
     "url": "https://doniitalian.com/"
   },
   {
     "n": "Chicken N Pickle – Oklahoma City",
     "v": "Adventure District",
+    "t": "Check website for hours",
     "d": [
       0,
       1,
@@ -246,13 +247,13 @@
       3,
       4
     ],
-    "t": "Check website for hours",
     "desc": "Happy hour Check website for hours. $2 off cocktails, beer, wine, and shareables",
     "url": "https://chickennpickle.com/oklahoma-city-gather/oklahoma-city-happy-hour/"
   },
   {
     "n": "Bricktown Brewery – Remington Park",
     "v": "Adventure District / Remington Park",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -260,26 +261,26 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Mon–Fri 3–6 PM; Bricktown brews $3.75 and 6-packs to go $15 (official cocktail menu PDF indexed from Bricktown Brewery)",
     "url": "https://bricktownbrewery.com/wp-content/uploads/2025/06/Mustang-Cocktail-Menu.pdf"
   },
   {
     "n": "Lunar Lounge",
     "v": "Midtown",
+    "t": "4–6 PM",
     "d": [
       1,
       2,
       3,
       4
     ],
-    "t": "4–6 PM",
     "desc": "Happy hour 4–6 PM. $3 off signature drinks, $5 beer-and-shot, $9 classic cocktails",
     "url": "https://www.visitokc.com/blog/all-posts/post/best-happy-hours-in-okc/"
   },
   {
     "n": "Akai Sushi",
     "v": "Wheeler District",
+    "t": "8–10 PM; 9–11 PM",
     "d": [
       1,
       2,
@@ -287,13 +288,13 @@
       4,
       5
     ],
-    "t": "8–10 PM; 9–11 PM",
     "desc": "Happy hour 8–10 PM; 9–11 PM. $6 canned beer, $8 select wines, $9 sake; select rolls and carpaccio",
     "url": "https://www.visitokc.com/blog/all-posts/post/best-happy-hours-in-okc/"
   },
   {
     "n": "Bar Arbolada",
     "v": "Film Row / West Village",
+    "t": "4–6 PM",
     "d": [
       0,
       1,
@@ -301,7 +302,6 @@
       3,
       4
     ],
-    "t": "4–6 PM",
     "desc": "Happy hour 4–6 PM. $5 cocktails and $3–$5 snacks",
     "url": "https://www.thetastyescape.com/happy-hour-in-okc-our-favorites/",
     "patio": true
@@ -309,6 +309,7 @@
   {
     "n": "Burger Punk",
     "v": "Paseo Arts District",
+    "t": "2–6 PM",
     "d": [
       0,
       1,
@@ -316,26 +317,26 @@
       3,
       4
     ],
-    "t": "2–6 PM",
     "desc": "Happy hour 2–6 PM. $3 off dine-in burgers, $5 drafts, $3 Coors Banquet",
     "url": "https://www.visitokc.com/blog/all-posts/post/best-happy-hours-in-okc/"
   },
   {
     "n": "Iguana Mexican Grill",
     "v": "Automobile Alley",
+    "t": "3–6 PM",
     "d": [
       1,
       2,
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Recurring happy hour block posted by day; drinks and specials vary by day",
     "url": "https://www.iguanamexicangrill.com/specials"
   },
   {
     "n": "The Crain",
     "v": "Lake Hefner",
+    "t": "2–6 PM",
     "d": [
       0,
       1,
@@ -343,13 +344,13 @@
       3,
       4
     ],
-    "t": "2–6 PM",
     "desc": "Happy hour 2–6 PM. $7 featured wines, $3 off all beer, discounted apps like prime rib sliders, poutine fries, and wings",
     "url": "https://www.visitokc.com/blog/all-posts/post/best-happy-hours-in-okc/"
   },
   {
     "n": "Symmetry",
     "v": "The Village",
+    "t": "4–6 PM",
     "d": [
       0,
       1,
@@ -357,13 +358,13 @@
       3,
       4
     ],
-    "t": "4–6 PM",
     "desc": "Happy hour 4–6 PM. Drink specials and 1/2-price appetizers",
     "url": "https://www.symmetryokc.com/happy-hour"
   },
   {
     "n": "Charleston’s Restaurant – OKC Bricktown",
     "v": "Bricktown",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -371,13 +372,13 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Mon–Fri social hour: premium well classic cocktails $8, wine feature $6 (6oz) / $9 (9oz), $1 off all beer, $2 off select starters",
     "url": "https://charlestons.com/wp-content/uploads/2019/02/CHA-2025-Menu-SocialHour-All-Web.pdf"
   },
   {
     "n": "Crabtown",
     "v": "Bricktown",
+    "t": "4–6 PM",
     "d": [
       0,
       1,
@@ -385,7 +386,6 @@
       3,
       4
     ],
-    "t": "4–6 PM",
     "desc": "Happy hour 4–6 PM. Cocktail specials, shareables, rotating seafood bites",
     "url": "https://welcometobricktown.com/bricktown-guides/happy-hour-guide-of-bricktown/",
     "patio": true
@@ -393,6 +393,7 @@
   {
     "n": "Fuzzy’s Taco Shop – Bricktown",
     "v": "Bricktown",
+    "t": "2–5 PM",
     "d": [
       0,
       1,
@@ -400,13 +401,13 @@
       3,
       4
     ],
-    "t": "2–5 PM",
     "desc": "Happy hour 2–5 PM. Frozen swirls, $3 beers, queso",
     "url": "https://welcometobricktown.com/bricktown-guides/happy-hour-guide-of-bricktown/"
   },
   {
     "n": "Mickey Mantle’s Steakhouse",
     "v": "Bricktown",
+    "t": "4:30–7 PM",
     "d": [
       0,
       1,
@@ -414,39 +415,39 @@
       3,
       4
     ],
-    "t": "4:30–7 PM",
     "desc": "Happy hour 4:30–7 PM. Half-price martinis / cocktail of the month",
     "url": "https://welcometobricktown.com/bricktown-guides/happy-hour-guide-of-bricktown/"
   },
   {
     "n": "Revolutions",
     "v": "Bricktown",
+    "t": "4–8 PM",
     "d": [
       0,
       1,
       2,
       3
     ],
-    "t": "4–8 PM",
     "desc": "Happy hour 4–8 PM. Drink specials and arcade deals",
     "url": "https://welcometobricktown.com/bricktown-guides/happy-hour-guide-of-bricktown/"
   },
   {
     "n": "Santos Mexican Kitchen & Cantina",
     "v": "Bricktown",
+    "t": "2–6 PM",
     "d": [
       1,
       2,
       3,
       4
     ],
-    "t": "2–6 PM",
     "desc": "Happy hour 2–6 PM. $3 beers, $6 margaritas, $8 signature cocktails, food items under $10",
     "url": "https://welcometobricktown.com/bricktown-guides/happy-hour-guide-of-bricktown/"
   },
   {
     "n": "The Melting Pot",
     "v": "Bricktown",
+    "t": "4–9 PM",
     "d": [
       0,
       1,
@@ -454,26 +455,26 @@
       3,
       6
     ],
-    "t": "4–9 PM",
     "desc": "Happy hour 4–9 PM. \"Forever Fondue\" menu / fondue specials",
     "url": "https://welcometobricktown.com/bricktown-guides/happy-hour-guide-of-bricktown/"
   },
   {
     "n": "Tipsy Tiki",
     "v": "Bricktown",
+    "t": "4–8 PM",
     "d": [
       0,
       1,
       2,
       3
     ],
-    "t": "4–8 PM",
     "desc": "Happy hour 4–8 PM. $4 well drinks, $3 domestic beers, $3 Pink Bikini",
     "url": "https://welcometobricktown.com/bricktown-guides/happy-hour-guide-of-bricktown/"
   },
   {
     "n": "Toby Keith’s I Love This Bar & Grill",
     "v": "Bricktown",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -481,13 +482,13 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Drink specials and buckets",
     "url": "https://welcometobricktown.com/bricktown-guides/happy-hour-guide-of-bricktown/"
   },
   {
     "n": "Yucatan Taco Stand & Tequila Bar",
     "v": "Bricktown",
+    "t": "2–6 PM",
     "d": [
       0,
       1,
@@ -495,7 +496,6 @@
       3,
       4
     ],
-    "t": "2–6 PM",
     "desc": "Happy hour 2–6 PM. $6 mini margaritas and micheladas / drink specials",
     "url": "https://welcometobricktown.com/bricktown-guides/happy-hour-guide-of-bricktown/",
     "patio": true
@@ -503,6 +503,7 @@
   {
     "n": "Bricktown Brewery – Downtown OKC",
     "v": "Bricktown / Downtown",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -510,13 +511,13 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Mon–Fri 3–6 PM; Bricktown brews $3.75 and 6-packs to go $15 (official cocktail menu PDF indexed from Bricktown Brewery)",
     "url": "https://bricktownbrewery.com/wp-content/uploads/2025/06/Mustang-Cocktail-Menu.pdf"
   },
   {
     "n": "JJ’s Alley",
     "v": "Bricktown / downtown edge",
+    "t": "2–7 PM",
     "d": [
       0,
       1,
@@ -526,13 +527,13 @@
       5,
       6
     ],
-    "t": "2–7 PM",
     "desc": "Happy hour 2–7 PM. Posted happy hour block; dive-bar drink deals",
     "url": "https://www.facebook.com/jjsalleyokc/"
   },
   {
     "n": "Mesero – Oklahoma City",
     "v": "OAK District, OKC",
+    "t": "2–6 PM",
     "d": [
       0,
       1,
@@ -540,7 +541,6 @@
       3,
       4
     ],
-    "t": "2–6 PM",
     "desc": "Happy hour 2–6 PM. $2 off all cocktails and $2 off all appetizers; Crispy Hour tacos",
     "url": "https://www.mesero.net/events/happy-hour",
     "patio": true
@@ -548,6 +548,7 @@
   {
     "n": "Deep Deuce Grill",
     "v": "Deep Deuce",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -557,7 +558,6 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Beer and drink specials",
     "url": "https://deepdeucegrill.com/menus/",
     "patio": true
@@ -565,6 +565,7 @@
   {
     "n": "Suite B OKC",
     "v": "Deep Deuce / downtown",
+    "t": "Check website for hours",
     "d": [
       0,
       1,
@@ -574,13 +575,13 @@
       5,
       6
     ],
-    "t": "Check website for hours",
     "desc": "Happy hour Check website for hours. Craft cocktails, flatbreads, dips, desserts highlighted on happy hour page section",
     "url": "https://www.suitebokc.com/"
   },
   {
     "n": "600 Kitchen & Bar",
     "v": "Downtown",
+    "t": "4–6 PM",
     "d": [
       0,
       1,
@@ -588,13 +589,13 @@
       3,
       4
     ],
-    "t": "4–6 PM",
     "desc": "Happy hour 4–6 PM. Half-off classic cocktails",
     "url": "https://www.instagram.com/reel/DURBR6pjq3x/"
   },
   {
     "n": "Upper Crust",
     "v": "Classen Curve",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -602,17 +603,20 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Social hour with appetizers and drinks",
     "url": "https://www.instagram.com/reel/DTylJNSkbhz/"
   },
   {
     "n": "Social Capital",
     "v": "Film Row / downtown west",
-    "d": [
-      1
-    ],
     "t": "All day",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Happy hour All day. 15% off all draft beers, $5 margaritas, $6 happy hour menu",
     "url": "https://www.instagram.com/socialcapitalokc/",
     "patio": true,
@@ -621,6 +625,7 @@
   {
     "n": "Louie’s Grill & Bar – OKC Highland Park",
     "v": "Highland Park / north OKC",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -630,13 +635,13 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Louie’s House Wines: $5 glass or $20 bottle during social hour",
     "url": "https://louiesgrillandbar.com/locations/okc-highland-park/"
   },
   {
     "n": "Louie’s Grill & Bar – OKC Lakeside",
     "v": "Lake Hefner / Lakeside",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -646,13 +651,13 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Louie’s House Wines: $5 glass or $20 bottle during social hour",
     "url": "https://louiesgrillandbar.com/locations/okc-lakeside/"
   },
   {
     "n": "Bricktown Brewery – Memorial",
     "v": "Memorial / NW OKC",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -660,13 +665,13 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Mon–Fri 3–6 PM; Bricktown brews $3.75 and 6-packs to go $15 (official cocktail menu PDF indexed from Bricktown Brewery)",
     "url": "https://bricktownbrewery.com/wp-content/uploads/2025/06/Mustang-Cocktail-Menu.pdf"
   },
   {
     "n": "Charleston’s Restaurant – OKC Memorial",
     "v": "Memorial / NW OKC",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -674,13 +679,13 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Mon–Fri social hour: premium well classic cocktails $8, wine feature $6 (6oz) / $9 (9oz), $1 off all beer, $2 off select starters",
     "url": "https://charlestons.com/wp-content/uploads/2019/02/CHA-2025-Menu-SocialHour-All-Web.pdf"
   },
   {
     "n": "Pub W – N. OKC",
     "v": "Memorial / north OKC",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -690,13 +695,13 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Drafts / featured cocktails / house wines start at $4.95 at 3 PM, $5.95 at 4 PM, $6.95 at 5 PM; $1 off Oklahoma drafts; $1 off domestics; select food …",
     "url": "https://pubdub.com/"
   },
   {
     "n": "The Hamilton Supperette & Lounge",
     "v": "Memorial Square",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -704,13 +709,13 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Various drink specials including Evan Williams Old Fashioned, sangria, select wines, beers, and bar food specials",
     "url": "https://www.visitokc.com/blog/all-posts/post/best-happy-hours-in-okc/"
   },
   {
     "n": "Charleston’s Restaurant – OKC Meridian",
     "v": "Meridian / airport area",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -718,20 +723,19 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Mon–Fri social hour: premium well classic cocktails $8, wine feature $6 (6oz) / $9 (9oz), $1 off all beer, $2 off select starters",
     "url": "https://charlestons.com/wp-content/uploads/2019/02/CHA-2025-Menu-SocialHour-All-Web.pdf"
   },
   {
     "n": "Bradford House",
     "v": "Mesta Park / Midtown north",
+    "t": "4–6 PM",
     "d": [
       1,
       2,
       3,
       4
     ],
-    "t": "4–6 PM",
     "desc": "Happy hour 4–6 PM. Happy hour posted on official social",
     "url": "https://www.instagram.com/p/DPO3m3eiWub/",
     "patio": true
@@ -739,6 +743,7 @@
   {
     "n": "R&J Lounge and Supper Club",
     "v": "Midtown",
+    "t": "2–6 PM",
     "d": [
       0,
       1,
@@ -748,13 +753,13 @@
       5,
       6
     ],
-    "t": "2–6 PM",
     "desc": "Happy hour 2–6 PM. $1.65 Coors Yellow Belly, $11.50 Poor Man’s Sangria, $5.70 Old Fashioned, $4.10 well drinks; $12 relish tray, $8 cocktail wieners, $12 cheesy crab toa…",
     "url": "https://midtownokc.com/happy-hours"
   },
   {
     "n": "REV Mex",
     "v": "Midtown",
+    "t": "2–6 PM",
     "d": [
       0,
       1,
@@ -762,13 +767,13 @@
       3,
       4
     ],
-    "t": "2–6 PM",
     "desc": "Happy hour 2–6 PM. $5 drafts and $7 margaritas",
     "url": "https://midtownokc.com/happy-hours"
   },
   {
     "n": "Rivière Modern Bánh Mì",
     "v": "Midtown",
+    "t": "2–6 PM",
     "d": [
       0,
       1,
@@ -776,13 +781,13 @@
       3,
       4
     ],
-    "t": "2–6 PM",
     "desc": "Happy hour 2–6 PM. $4 well drinks, wine and draft specials; $5 egg rolls and chicken karaage",
     "url": "https://midtownokc.com/happy-hours"
   },
   {
     "n": "Stella Modern Italian Cuisine",
     "v": "Midtown",
+    "t": "4–6 PM; 9:30–11 PM",
     "d": [
       1,
       2,
@@ -791,7 +796,6 @@
       5,
       6
     ],
-    "t": "4–6 PM; 9:30–11 PM",
     "desc": "Happy hour 4–6 PM; 9:30–11 PM. $9 appetizers, $3–7 select beer & cocktails, $20 select bottles of wine",
     "url": "https://midtownokc.com/happy-hours",
     "patio": true
@@ -799,6 +803,7 @@
   {
     "n": "The Chalkboard OKC",
     "v": "Midtown",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -808,13 +813,13 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Sliders, truffle fries, cocktails and other happy hour items",
     "url": "https://www.facebook.com/TheChalkboardOKC/videos/surprise-chalkboard-okc-now-has-happy-hour-and-its-daily-36pm-gather-your-crew-a/828990696497711/"
   },
   {
     "n": "The Collective Kitchens and Cocktails",
     "v": "Midtown",
+    "t": "$5 Mule Mondays all day; 3–6 PM; 11 AM–3 PM",
     "d": [
       0,
       1,
@@ -824,13 +829,13 @@
       5,
       6
     ],
-    "t": "$5 Mule Mondays all day; 3–6 PM; 11 AM–3 PM",
     "desc": "Happy hour $5 Mule Mondays all day; 3–6 PM; 11 AM–3 PM. $3.99 well cocktails, $6 house cocktails, $2 domestic drafts, $4 premium drafts starting at 3 PM and rising hourly; Mimosa Sundays $15 bottles / $3 gl…",
     "url": "https://midtownokc.com/happy-hours"
   },
   {
     "n": "The Garage Burgers & Beer – Midtown",
     "v": "Midtown",
+    "t": "11 AM–6 PM",
     "d": [
       0,
       1,
@@ -840,13 +845,13 @@
       5,
       6
     ],
-    "t": "11 AM–6 PM",
     "desc": "Happy hour 11 AM–6 PM. $3 domestic beers, $4 house wines, $6 draft cocktails, $5 frozen cocktails (all day on Thunder game days until end of game)",
     "url": "https://midtownokc.com/happy-hours"
   },
   {
     "n": "The Goose Sandies & Bar",
     "v": "Midtown",
+    "t": "4–6 PM",
     "d": [
       0,
       1,
@@ -854,26 +859,26 @@
       3,
       4
     ],
-    "t": "4–6 PM",
     "desc": "Happy hour 4–6 PM. $3 Well’s Pale and Amber lagers",
     "url": "https://midtownokc.com/happy-hours"
   },
   {
     "n": "The Hall’s Pizza Kitchen",
     "v": "Midtown",
+    "t": "3:30–5:30 PM",
     "d": [
       0,
       1,
       2,
       3
     ],
-    "t": "3:30–5:30 PM",
     "desc": "Happy hour 3:30–5:30 PM. $6 mini cocktails, $18 beer buckets, $20 bottles of wine, $5–$8 snacks",
     "url": "https://midtownokc.com/happy-hours"
   },
   {
     "n": "The Manhattan OKC",
     "v": "Midtown",
+    "t": "4 PM–close",
     "d": [
       0,
       1,
@@ -883,13 +888,13 @@
       5,
       6
     ],
-    "t": "4 PM–close",
     "desc": "Happy hour 4 PM–close. Happy hour menu posted daily; cocktail-focused",
     "url": "https://www.toasttab.com/local/order/themanhattanokc"
   },
   {
     "n": "Twenty6 Lounge",
     "v": "Midtown",
+    "t": "3–7 PM",
     "d": [
       0,
       1,
@@ -899,13 +904,13 @@
       5,
       6
     ],
-    "t": "3–7 PM",
     "desc": "Happy hour 3–7 PM. $7 drinks and half-price shisha",
     "url": "https://midtownokc.com/happy-hours"
   },
   {
     "n": "O Bar",
     "v": "Midtown / Downtown fringe",
+    "t": "4–6 PM; 4 PM–close Monday",
     "d": [
       0,
       1,
@@ -915,7 +920,6 @@
       5,
       6
     ],
-    "t": "4–6 PM; 4 PM–close Monday",
     "desc": "Happy hour 4–6 PM; 4 PM–close Monday. Drink specials + small bites; $10 featured martinis on Mondays",
     "url": "https://www.visitokc.com/blog/all-posts/post/best-happy-hours-in-okc/",
     "patio": true,
@@ -924,6 +928,7 @@
   {
     "n": "Charleston’s Restaurant – OKC NW",
     "v": "NW Expressway",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -931,13 +936,13 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Mon–Fri social hour: premium well classic cocktails $8, wine feature $6 (6oz) / $9 (9oz), $1 off all beer, $2 off select starters",
     "url": "https://charlestons.com/wp-content/uploads/2019/02/CHA-2025-Menu-SocialHour-All-Web.pdf"
   },
   {
     "n": "Louie’s Grill & Bar – OKC NW Expressway",
     "v": "NW Expressway",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -947,13 +952,13 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Louie’s House Wines: $5 glass or $20 bottle during social hour",
     "url": "https://louiesgrillandbar.com/locations/okc-nw-expressway/"
   },
   {
     "n": "Brent’s Cajun Seafood & Oyster Bar",
     "v": "NW Expressway / north OKC",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -963,13 +968,13 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. 50% off select apps and $2.50 domestics",
     "url": "https://www.brentscajun.com/happy-hour"
   },
   {
     "n": "Curveball Kitchen",
     "v": "NW OKC",
+    "t": "Open–4 PM",
     "d": [
       0,
       1,
@@ -977,13 +982,13 @@
       3,
       4
     ],
-    "t": "Open–4 PM",
     "desc": "Happy hour Open–4 PM. $5 beers and 50% off sports simulators",
     "url": "https://www.groupon.com/deals/curveball-kitchen-oklahoma-city-2"
   },
   {
     "n": "Smokehouse Social",
     "v": "NW OKC",
+    "t": "Open–4 PM",
     "d": [
       0,
       1,
@@ -991,13 +996,13 @@
       3,
       4
     ],
-    "t": "Open–4 PM",
     "desc": "Happy hour Open–4 PM. $5 beers and 50% off sports simulators",
     "url": "https://www.groupon.com/deals/smokehouse-social-oklahoma-city"
   },
   {
     "n": "Jimmy B’s Culinary + Krafted",
     "v": "Automobile Alley",
+    "t": "3–5:30 PM; within 1 hour of close",
     "d": [
       0,
       1,
@@ -1007,19 +1012,18 @@
       5,
       6
     ],
-    "t": "3–5:30 PM; within 1 hour of close",
     "desc": "Happy hour 3–5:30 PM; within 1 hour of close. $8 draft wine, $3 off classic cocktails and beer, $7 beer-and-shot; dumplings, ramen and bar bites",
     "url": "https://www.visitokc.com/blog/all-posts/post/best-happy-hours-in-okc/"
   },
   {
     "n": "New State Burgers & Spirits",
     "v": "Plaza District",
+    "t": "3–6 PM",
     "d": [
       2,
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. $6 fried onion burger, $5 fried banana peppers, $6 Bottled-in-Bond Old Fashioned",
     "url": "https://www.visitokc.com/blog/all-posts/post/best-happy-hours-in-okc/",
     "patio": true
@@ -1027,6 +1031,7 @@
   {
     "n": "Raven",
     "v": "Western Avenue",
+    "t": "Check website for hours",
     "d": [
       0,
       1,
@@ -1034,7 +1039,6 @@
       3,
       4
     ],
-    "t": "Check website for hours",
     "desc": "Happy hour Check website for hours. $5 cocktails including Old Fashioned, Paloma, Gimlet, Tom Collins, Aperol Spritz",
     "url": "https://www.ravenokc.com/happy-hour-specials",
     "patio": true
@@ -1042,6 +1046,7 @@
   {
     "n": "Twin Peaks – North Oklahoma City",
     "v": "North OKC / Quail Springs area",
+    "t": "3–6 PM; 10 PM–close",
     "d": [
       0,
       1,
@@ -1049,26 +1054,26 @@
       3,
       4
     ],
-    "t": "3–6 PM; 10 PM–close",
     "desc": "Happy hour 3–6 PM; 10 PM–close. $1 off 22 oz domestic drafts, $2 off 22 oz Twin Peaks drafts, $2 mini beef tacos, $3 chips & salsa, $5 apps, $7 select shareables",
     "url": "https://twinpeaksrestaurant.com/locations/n-oklahoma-city-ok"
   },
   {
     "n": "Opus Prime Steakhouse",
     "v": "Northwest OKC",
+    "t": "4–6 PM",
     "d": [
       0,
       1,
       2,
       3
     ],
-    "t": "4–6 PM",
     "desc": "Happy hour 4–6 PM. All appetizers half off (excludes cheese flight, lobster cargot, tasting platter)",
     "url": "https://www.opusprimesteakhouse.com/happy-hour"
   },
   {
     "n": "The Mug Scratch Kitchen",
     "v": "Northwest OKC",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -1078,26 +1083,26 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. $2.50 domestic pints and $3.50 domestic tallboys / posted happy hour beer deals",
     "url": "https://themugokc.com/"
   },
   {
     "n": "Cloud Puncher",
     "v": "OAK / Chisholm Creek area",
+    "t": "2–6 PM",
     "d": [
       0,
       1,
       2,
       3
     ],
-    "t": "2–6 PM",
     "desc": "Happy hour 2–6 PM. $4 off all shareables, $4 domestic beers, $8 glasses of wine, $4 off signature cocktails",
     "url": "https://www.opentable.com/r/cloud-puncher-oklahoma-city"
   },
   {
     "n": "Tommy Bahama Marlin Bar – OAK",
     "v": "OAK / Chisholm Creek area",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -1107,7 +1112,6 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Happy hour posted; live music also promoted on some days",
     "url": "https://www.instagram.com/p/DCQK7c8xLrp/",
     "patio": true
@@ -1115,6 +1119,7 @@
   {
     "n": "Barseo",
     "v": "Paseo / Uptown area",
+    "t": "Check website for hours",
     "d": [
       0,
       1,
@@ -1122,13 +1127,13 @@
       3,
       4
     ],
-    "t": "Check website for hours",
     "desc": "Happy hour Check website for hours. $2.50 tacos, $8 nachos, $9 signature cocktails, $6 house wine, $5 well drinks",
     "url": "https://www.visitokc.com/blog/all-posts/post/best-happy-hours-in-okc/"
   },
   {
     "n": "Good Times",
     "v": "Plaza District",
+    "t": "All day",
     "d": [
       0,
       1,
@@ -1138,13 +1143,13 @@
       5,
       6
     ],
-    "t": "All day",
     "desc": "Happy hour All day. $3 domestics and $6 beer-and-shot specials",
     "url": "https://www.visitokc.com/blog/all-posts/post/best-happy-hours-in-okc/"
   },
   {
     "n": "OSO Paseo",
     "v": "Paseo Arts District",
+    "t": "2–5 PM",
     "d": [
       0,
       1,
@@ -1152,7 +1157,6 @@
       3,
       4
     ],
-    "t": "2–5 PM",
     "desc": "Happy hour 2–5 PM. Happy Hour Mon–Fri plus half-price tacos and beer every Tuesday",
     "url": "https://osopaseo.com/",
     "patio": true
@@ -1160,6 +1164,7 @@
   {
     "n": "Paseo Grill",
     "v": "Paseo Arts District",
+    "t": "Check website for hours",
     "d": [
       0,
       1,
@@ -1169,7 +1174,6 @@
       5,
       6
     ],
-    "t": "Check website for hours",
     "desc": "Happy hour Check website for hours. Daily Happy Hour posted on events page",
     "url": "https://paseogrill.com/events/",
     "patio": true
@@ -1177,6 +1181,7 @@
   {
     "n": "Red Rooster Bar & Grill",
     "v": "Paseo Arts District",
+    "t": "4–6 PM",
     "d": [
       0,
       1,
@@ -1184,39 +1189,39 @@
       3,
       4
     ],
-    "t": "4–6 PM",
     "desc": "Happy hour 4–6 PM. Recurring happy hour posted",
     "url": "https://www.thepaseo.org/red-rooster-bar-grill"
   },
   {
     "n": "Empire Billiard & Shuffleboard",
     "v": "Plaza District",
+    "t": "4–8 PM",
     "d": [
       0,
       3,
       4,
       6
     ],
-    "t": "4–8 PM",
     "desc": "Happy hour 4–8 PM. $3 beer and $7 cocktail",
     "url": "https://www.empireokc.com/events"
   },
   {
     "n": "Ma Der Lao Kitchen",
     "v": "Plaza District",
+    "t": "3–6 PM",
     "d": [
       1,
       2,
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Happy Hour (menu page posts recurring block; exact item lineup may rotate)",
     "url": "https://maderlaokitchen.com/menu"
   },
   {
     "n": "Superfly",
     "v": "Film Row / West Village",
+    "t": "4–5:30 PM",
     "d": [
       0,
       1,
@@ -1224,13 +1229,13 @@
       3,
       4
     ],
-    "t": "4–5:30 PM",
     "desc": "Happy hour 4–5:30 PM. Select drink specials and shareable bites",
     "url": "https://www.superflyokc.com/"
   },
   {
     "n": "The Mule – Plaza District",
     "v": "Plaza District",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -1238,7 +1243,6 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. $5 Dad Mugs of Coors, Yuengling & Pacifico; $5 sangria; beer of week; half-price bar snacks",
     "url": "https://okc.themuleokc.com/oklahoma-city-plaza-district-the-mule-happy-hour-specials",
     "patio": true
@@ -1246,6 +1250,7 @@
   {
     "n": "Uncle Julio’s – Oklahoma City",
     "v": "Quail Springs area",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -1253,13 +1258,13 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Specially priced happy hour appetizers and drinks at the bar",
     "url": "https://www.facebook.com/UncleJuliosOKC/videos/happy-hour/1219672722351420/"
   },
   {
     "n": "Ballers Bar & Grill",
     "v": "South Meridian / airport area",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -1267,13 +1272,13 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Happy hour posted on official social; examples include drink specials such as $3 Fireball / $4 Rumple in one post",
     "url": "https://ballersokc.com/"
   },
   {
     "n": "Bricktown Brewery – South OKC",
     "v": "South OKC",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -1281,13 +1286,13 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Mon–Fri 3–6 PM; Bricktown brews $3.75 and 6-packs to go $15 (official cocktail menu PDF indexed from Bricktown Brewery)",
     "url": "https://bricktownbrewery.com/wp-content/uploads/2025/06/Mustang-Cocktail-Menu.pdf"
   },
   {
     "n": "D&B Daiquiri Spot",
     "v": "South OKC",
+    "t": "4–6 PM",
     "d": [
       0,
       1,
@@ -1297,13 +1302,13 @@
       5,
       6
     ],
-    "t": "4–6 PM",
     "desc": "Happy hour 4–6 PM. Daily happy hour posted; daiquiri-focused specials",
     "url": "https://www.dbdaiquirispot.com/"
   },
   {
     "n": "Louie’s Grill & Bar – OKC S. Western",
     "v": "South OKC",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -1313,13 +1318,13 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Louie’s House Wines: $5 glass or $20 bottle during social hour",
     "url": "https://louiesgrillandbar.com/locations/okc-s-western/"
   },
   {
     "n": "Pub W – S. OKC",
     "v": "South OKC",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -1329,13 +1334,13 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Drafts / featured cocktails / house wines start at $4.95 at 3 PM, $5.95 at 4 PM, $6.95 at 5 PM; $1 off Oklahoma drafts; $1 off domestics; select food …",
     "url": "https://pubdub.com/"
   },
   {
     "n": "Charleston’s Restaurant – OKC I-240",
     "v": "South OKC / I-240",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -1343,13 +1348,13 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Mon–Fri social hour: premium well classic cocktails $8, wine feature $6 (6oz) / $9 (9oz), $1 off all beer, $2 off select starters",
     "url": "https://charlestons.com/wp-content/uploads/2019/02/CHA-2025-Menu-SocialHour-All-Web.pdf"
   },
   {
     "n": "Deem Laow",
     "v": "The Village / north OKC",
+    "t": "4–8 PM",
     "d": [
       0,
       1,
@@ -1357,26 +1362,26 @@
       3,
       4
     ],
-    "t": "4–8 PM",
     "desc": "Happy hour 4–8 PM. $5 old fashioned, $5 beer-and-shot, $4 gyoza",
     "url": "https://www.deemlaow.com/happyhour"
   },
   {
     "n": "Palo Santo",
     "v": "Farmers Market District",
+    "t": "4–6 PM",
     "d": [
       1,
       2,
       3,
       4
     ],
-    "t": "4–6 PM",
     "desc": "Happy hour 4–6 PM. Tacos, chips & guac, black bean hummus, quesadillas, beer/wine/cocktail specials incl. Build a Spritz",
     "url": "https://www.visitokc.com/blog/all-posts/post/best-happy-hours-in-okc/"
   },
   {
     "n": "Ponyboy",
     "v": "Uptown 23rd",
+    "t": "4–7 PM; all day Sunday",
     "d": [
       0,
       1,
@@ -1385,7 +1390,6 @@
       4,
       6
     ],
-    "t": "4–7 PM; all day Sunday",
     "desc": "Happy hour 4–7 PM; all day Sunday. Discount cocktails and drinks",
     "url": "https://www.thetastyescape.com/happy-hour-in-okc-our-favorites/",
     "patio": true
@@ -1393,6 +1397,7 @@
   {
     "n": "The Crown",
     "v": "Western Avenue",
+    "t": "4–6 PM",
     "d": [
       0,
       1,
@@ -1402,13 +1407,13 @@
       5,
       6
     ],
-    "t": "4–6 PM",
     "desc": "Happy hour 4–6 PM. Posted happy hour block; details vary",
     "url": "https://thecrownokc.com/"
   },
   {
     "n": "Twin Peaks – West Oklahoma City",
     "v": "West OKC",
+    "t": "3–6 PM; 10 PM–close",
     "d": [
       0,
       1,
@@ -1416,13 +1421,13 @@
       3,
       4
     ],
-    "t": "3–6 PM; 10 PM–close",
     "desc": "Happy hour 3–6 PM; 10 PM–close. $1 off 22 oz domestic drafts, $2 off 22 oz Twin Peaks drafts, $2 mini beef tacos, $3 chips & salsa, $5 apps, $7 select shareables",
     "url": "https://twinpeaksrestaurant.com/locations/west-oklahoma-city-ok"
   },
   {
     "n": "The Eatery at The Union",
     "v": "West Village / downtown west",
+    "t": "4–7 PM",
     "d": [
       0,
       1,
@@ -1432,13 +1437,13 @@
       5,
       6
     ],
-    "t": "4–7 PM",
     "desc": "Happy hour 4–7 PM. $1–$5 drinks; half-price flatbreads",
     "url": "https://www.thetastyescape.com/happy-hour-in-okc-our-favorites/"
   },
   {
     "n": "Bricktown Brewery – Shawnee",
     "v": "Shawnee",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -1446,13 +1451,13 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Mon–Fri 3–6 PM; Bricktown brews $3.75 and 6-packs to go $15 (official cocktail menu PDF indexed from Bricktown Brewery)",
     "url": "https://bricktownbrewery.com/wp-content/uploads/2025/06/Mustang-Cocktail-Menu.pdf"
   },
   {
     "n": "Louie’s Grill & Bar – Yukon",
     "v": "Yukon",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -1462,13 +1467,13 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Louie’s House Wines: $5 glass or $20 bottle during social hour",
     "url": "https://louiesgrillandbar.com/locations/yukon/"
   },
   {
     "n": "Pub W – Yukon",
     "v": "Yukon",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -1478,19 +1483,34 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Drafts / featured cocktails / house wines start at $4.95 at 3 PM, $5.95 at 4 PM, $6.95 at 5 PM; $1 off Oklahoma drafts; $1 off domestics; select food …",
     "url": "https://pubdub.com/"
   },
   {
     "n": "Hall's Pizza Kitchen",
     "v": "Midtown",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Pizza happy hour specials",
     "url": "https://www.hallspizza.com/"
   },
   {
     "n": "Barrios",
     "v": "Midtown",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Margarita happy hour specials",
     "url": "https://www.barriosmexican.com/",
     "patio": true
@@ -1498,6 +1518,14 @@
   {
     "n": "Empire Slice House",
     "v": "Plaza District",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Beer & pizza happy hour",
     "url": "https://www.empireslicehouse.com/",
     "patio": true
@@ -1505,6 +1533,14 @@
   {
     "n": "Oak & Ore",
     "v": "Plaza District",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Beer happy hour specials",
     "url": "https://www.oakandore.com/",
     "patio": true
@@ -1512,6 +1548,14 @@
   {
     "n": "Picasso Cafe",
     "v": "Paseo Arts District",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Drinks happy hour specials",
     "url": "https://www.picassocafeokc.com/",
     "patio": true
@@ -1519,6 +1563,14 @@
   {
     "n": "Frida Southwest",
     "v": "Paseo Arts District",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Cocktail happy hour specials",
     "url": "https://www.fridasouthwest.com/",
     "patio": true
@@ -1526,6 +1578,14 @@
   {
     "n": "Parlor OKC",
     "v": "Automobile Alley",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Food hall happy hour specials",
     "url": "https://www.parlorokc.com/",
     "patio": true,
@@ -1534,12 +1594,28 @@
   {
     "n": "Tellers",
     "v": "Automobile Alley",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Cocktail happy hour specials",
     "url": "https://www.tellersokc.com/"
   },
   {
     "n": "Broadway 10",
     "v": "Automobile Alley",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Steakhouse happy hour specials",
     "url": "https://www.broadway10okc.com/",
     "patio": true
@@ -1547,6 +1623,14 @@
   {
     "n": "Sidecar",
     "v": "Automobile Alley",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Wine happy hour specials",
     "url": "https://www.sidecarokc.com/",
     "patio": true
@@ -1554,6 +1638,14 @@
   {
     "n": "The Press",
     "v": "Automobile Alley",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Happy hour drink specials",
     "url": "https://www.thepressokc.com/",
     "patio": true
@@ -1561,6 +1653,14 @@
   {
     "n": "The Jones Assembly",
     "v": "Film Row / West Village",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Drink happy hour specials",
     "url": "https://www.thejonesassembly.com/",
     "patio": true
@@ -1568,12 +1668,28 @@
   {
     "n": "Mary Eddy's",
     "v": "Film Row / West Village",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Cocktail happy hour specials",
     "url": "https://www.21cmuseumhotels.com/oklahomacity/restaurant/"
   },
   {
     "n": "Fewless",
     "v": "Film Row / West Village",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Wine happy hour specials",
     "url": "https://www.fewlessokc.com/",
     "patio": true
@@ -1581,12 +1697,28 @@
   {
     "n": "Mickey Mantle's Steakhouse",
     "v": "Bricktown",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Martini happy hour specials",
     "url": "https://mickeymantlesteakhouse.com/"
   },
   {
     "n": "Bourbon Street Cafe",
     "v": "Bricktown",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Drink happy hour specials",
     "url": "https://www.bourbonstreetokc.com/",
     "patio": true
@@ -1594,6 +1726,14 @@
   {
     "n": "Pizzeria Gusto",
     "v": "Uptown 23rd",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Pizza happy hour specials",
     "url": "https://pizzeriagusto.com/",
     "patio": true
@@ -1601,6 +1741,14 @@
   {
     "n": "Guyutes",
     "v": "Uptown 23rd",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Drink happy hour specials",
     "url": "https://www.guyutes.com/",
     "patio": true,
@@ -1609,26 +1757,7 @@
   {
     "n": "FLINT",
     "v": "Downtown / City Center",
-    "desc": "Drink happy hour specials",
-    "url": "https://www.flintokc.com/",
-    "patio": true
-  },
-  {
-    "n": "Stock & Bond",
-    "v": "Downtown / City Center",
-    "desc": "Happy hour drink specials",
-    "url": "https://www.stockandbond.com/",
-    "patio": true
-  },
-  {
-    "n": "Library of Distilled Spirits",
-    "v": "Downtown / City Center",
-    "desc": "Cocktail happy hour specials",
-    "url": "https://www.libraryofdistilledspirits.com/"
-  },
-  {
-    "n": "The Collective",
-    "v": "Midtown",
+    "t": "",
     "d": [
       0,
       1,
@@ -1636,7 +1765,50 @@
       3,
       4
     ],
+    "desc": "Drink happy hour specials",
+    "url": "https://www.flintokc.com/",
+    "patio": true
+  },
+  {
+    "n": "Stock & Bond",
+    "v": "Downtown / City Center",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "desc": "Happy hour drink specials",
+    "url": "https://www.stockandbond.com/",
+    "patio": true
+  },
+  {
+    "n": "Library of Distilled Spirits",
+    "v": "Downtown / City Center",
+    "t": "",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "desc": "Cocktail happy hour specials",
+    "url": "https://www.libraryofdistilledspirits.com/"
+  },
+  {
+    "n": "The Collective",
+    "v": "Midtown",
     "t": "4-7 PM",
+    "d": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "desc": "Multi HH happy hour Mon–Fri 4–7 PM",
     "url": "https://www.thecollectiveokc.com/",
     "patio": true,
@@ -1645,6 +1817,7 @@
   {
     "n": "Hall's Pizza Kitchen",
     "v": "Midtown",
+    "t": "4-7 PM",
     "d": [
       0,
       1,
@@ -1652,7 +1825,6 @@
       3,
       4
     ],
-    "t": "4-7 PM",
     "desc": "Happy hour specials happy hour Mon–Fri 4–7 PM",
     "patio": true,
     "rooftop": true
@@ -1660,6 +1832,7 @@
   {
     "n": "Stella",
     "v": "Midtown",
+    "t": "4-7 PM",
     "d": [
       0,
       1,
@@ -1667,7 +1840,6 @@
       3,
       4
     ],
-    "t": "4-7 PM",
     "desc": "Wine HH happy hour Mon–Fri 4–7 PM",
     "url": "https://www.stellaokc.com/",
     "patio": true
@@ -1675,6 +1847,7 @@
   {
     "n": "The Chalkboard",
     "v": "Midtown",
+    "t": "4-7 PM",
     "d": [
       0,
       1,
@@ -1682,7 +1855,6 @@
       3,
       4
     ],
-    "t": "4-7 PM",
     "desc": "Drinks happy hour Mon–Fri 4–7 PM",
     "url": "https://www.thechalkboardokc.com/",
     "patio": true
@@ -1690,6 +1862,7 @@
   {
     "n": "The Mule",
     "v": "Plaza District",
+    "t": "4-7 PM",
     "d": [
       0,
       1,
@@ -1697,7 +1870,6 @@
       3,
       4
     ],
-    "t": "4-7 PM",
     "desc": "Drinks happy hour Mon–Fri 4–7 PM",
     "url": "https://okc.themuleokc.com/",
     "patio": true
@@ -1705,6 +1877,7 @@
   {
     "n": "New State Burgers",
     "v": "Plaza District",
+    "t": "4-7 PM",
     "d": [
       0,
       1,
@@ -1712,7 +1885,6 @@
       3,
       4
     ],
-    "t": "4-7 PM",
     "desc": "Cocktails happy hour Mon–Fri 4–7 PM",
     "url": "https://www.newstateburgers.com/",
     "patio": true
@@ -1720,6 +1892,7 @@
   {
     "n": "Mary Eddy's",
     "v": "Film Row / West Village",
+    "t": "4-7 PM",
     "d": [
       0,
       1,
@@ -1727,13 +1900,13 @@
       3,
       4
     ],
-    "t": "4-7 PM",
     "desc": "Happy hour specials happy hour Mon–Fri 4–7 PM",
     "patio": true
   },
   {
     "n": "Mickey Mantle's",
     "v": "Bricktown",
+    "t": "4-7 PM",
     "d": [
       0,
       1,
@@ -1741,12 +1914,12 @@
       3,
       4
     ],
-    "t": "4-7 PM",
     "desc": "Happy hour specials happy hour Mon–Fri 4–7 PM"
   },
   {
     "n": "Bricktown Brewery",
     "v": "Bricktown",
+    "t": "4-7 PM",
     "d": [
       0,
       1,
@@ -1754,13 +1927,13 @@
       3,
       4
     ],
-    "t": "4-7 PM",
     "desc": "3–6 happy hour Mon–Fri 4–7 PM",
     "url": "https://bricktownbrewery.com/"
   },
   {
     "n": "Yucatan Taco",
     "v": "Bricktown",
+    "t": "4-7 PM",
     "d": [
       0,
       1,
@@ -1768,7 +1941,6 @@
       3,
       4
     ],
-    "t": "4-7 PM",
     "desc": "Margaritas happy hour Mon–Fri 4–7 PM",
     "url": "https://yucatantacostand.com/",
     "patio": true
@@ -1776,6 +1948,7 @@
   {
     "n": "The Boom",
     "v": "39th Street District",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -1785,7 +1958,6 @@
       5,
       6
     ],
-    "t": "Varies",
     "desc": "Drag brunch and event-driven drink specials. LGBTQ+ bar with rotating events.",
     "url": "https://theboomokc.com/",
     "patio": true
@@ -1793,6 +1965,7 @@
   {
     "n": "Henry Hudson’s (Remington Park)",
     "v": "Adventure District",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -1800,13 +1973,13 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Happy hour varies by day. Bar and grill specials near Remington Park.",
     "url": "https://henryhudsons.com/"
   },
   {
     "n": "VII Asian Bistro",
     "v": "Asian District",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -1814,7 +1987,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Asian fusion bistro with happy hour specials in the Asian District.",
     "url": "https://www.viiasianbistro.com/",
     "patio": true
@@ -1822,6 +1994,7 @@
   {
     "n": "Abuelo’s",
     "v": "Bricktown",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -1829,13 +2002,13 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Mexican restaurant happy hour. Drink and appetizer specials vary by location.",
     "url": "https://www.abuelos.com/"
   },
   {
     "n": "El Coyote",
     "v": "Britton District",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -1843,7 +2016,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Bar specials at this Britton District Mexican restaurant.",
     "url": "https://elcoyoteokc.com/",
     "patio": true
@@ -1851,6 +2023,7 @@
   {
     "n": "Birra Birra Craft Pizzeria",
     "v": "Chisholm Creek",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -1858,7 +2031,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Craft pizza and beer specials at Chisholm Creek.",
     "url": "https://birrabirrapizzeria.com/",
     "patio": true
@@ -1866,6 +2038,7 @@
   {
     "n": "Eddie’s",
     "v": "Chisholm Creek",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -1873,13 +2046,13 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Bar and restaurant with happy hour at Chisholm Creek.",
     "url": "https://www.eddiesokc.com/"
   },
   {
     "n": "Firebirds Wood Fired Grill",
     "v": "Chisholm Creek",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -1887,7 +2060,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "FIREBAR happy hour with cocktail and appetizer specials.",
     "url": "https://firebirdsrestaurants.com/oklahoma-city",
     "patio": true
@@ -1895,6 +2067,7 @@
   {
     "n": "Riserva Bar + Tapas",
     "v": "Chisholm Creek",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -1902,7 +2075,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Wine, cocktail, and tapas happy hour at Chisholm Creek.",
     "url": "https://www.riservatapas.com/",
     "patio": true
@@ -1910,6 +2082,7 @@
   {
     "n": "Republic Gastropub",
     "v": "Classen Curve",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -1917,7 +2090,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Beer-focused happy hour at Classen Curve gastropub.",
     "url": "https://www.republicgastropub.com/",
     "patio": true
@@ -1925,6 +2097,7 @@
   {
     "n": "Bar Cicchetti",
     "v": "Deep Deuce",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -1932,7 +2105,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Italian wine bar with happy hour in Deep Deuce.",
     "url": "https://barcicchettiok.com/",
     "patio": true
@@ -1940,6 +2112,7 @@
   {
     "n": "Black Walnut",
     "v": "Deep Deuce",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -1947,7 +2120,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Upscale dining with bar specials in Deep Deuce.",
     "url": "https://www.blackwalnutokc.com/",
     "patio": true
@@ -1955,6 +2127,7 @@
   {
     "n": "The Blok Bar",
     "v": "Deep Deuce",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -1964,7 +2137,6 @@
       5,
       6
     ],
-    "t": "Varies",
     "desc": "Cocktail specials at Deep Deuce neighborhood bar.",
     "url": "https://www.theblokbar.com/",
     "patio": true
@@ -1972,6 +2144,7 @@
   {
     "n": "Mahogany Prime Steakhouse",
     "v": "Downtown / City Center",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -1979,13 +2152,13 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Bar and lounge-based happy hour specials at downtown steakhouse.",
     "url": "https://mahoganyprimesteakhouse.com/locations/oklahoma-city/"
   },
   {
     "n": "Perle Mesta",
     "v": "Downtown / City Center",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -1993,7 +2166,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Cocktail specials at this downtown OKC restaurant.",
     "url": "https://www.perlemesta.com/",
     "patio": true
@@ -2001,6 +2173,7 @@
   {
     "n": "Kindred Spirits",
     "v": "East End District",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2008,7 +2181,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Cocktail-focused happy hour in the East End District.",
     "url": "https://www.kindredspiritsokc.com/",
     "patio": true
@@ -2016,6 +2188,7 @@
   {
     "n": "Polk House",
     "v": "East End District",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2023,7 +2196,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Bar and restaurant with happy hour in East End.",
     "url": "https://www.polkhouseokc.com/",
     "patio": true
@@ -2031,6 +2203,7 @@
   {
     "n": "Boulevard Steakhouse",
     "v": "Edmond",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2038,13 +2211,13 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Bar specials at this Edmond steakhouse.",
     "url": "https://www.boulevardsteakhouse.com/"
   },
   {
     "n": "Farmers Grain Kitchen + Cellar",
     "v": "Edmond",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2052,7 +2225,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Limited and event-driven happy hour in Edmond.",
     "url": "https://www.farmersgrain.com/",
     "patio": true
@@ -2060,6 +2232,7 @@
   {
     "n": "Louie’s Grill & Bar – Lake Hefner",
     "v": "Lake Hefner",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -2069,13 +2242,13 @@
       5,
       6
     ],
-    "t": "3–6 PM",
     "desc": "Happy hour 3–6 PM. Louie’s House Wines: $5 glass or $20 bottle during social hour. Lakeside patio.",
     "url": "https://louiesgrillandbar.com/"
   },
   {
     "n": "Mama Roja Mexican Kitchen",
     "v": "Lake Hefner",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2083,7 +2256,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Mexican restaurant with drink specials near Lake Hefner.",
     "url": "https://mamaroja.com/",
     "patio": true
@@ -2091,6 +2263,7 @@
   {
     "n": "Cheddar’s Scratch Kitchen – Midwest City",
     "v": "Midwest City",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2098,13 +2271,13 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Cocktail specials at Cheddar’s in Midwest City.",
     "url": "https://www.cheddars.com/"
   },
   {
     "n": "Los Vaqueros – Midwest City",
     "v": "Midwest City",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2112,13 +2285,13 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Mexican restaurant with bar specials in Midwest City.",
     "url": "https://www.losvaquerosrestaurants.com/"
   },
   {
     "n": "Hidalgo’s Mexican Restaurant",
     "v": "Moore",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2126,13 +2299,13 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Mexican restaurant with happy hour specials in Moore.",
     "url": "https://hidalgosmexrestaurant.com/"
   },
   {
     "n": "Benvenuti’s Ristorante",
     "v": "Norman",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2140,13 +2313,13 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Italian restaurant with bar specials in Norman.",
     "url": "https://www.benvenutisristorante.com/"
   },
   {
     "n": "Scratch Kitchen & Cocktails",
     "v": "Norman",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2154,7 +2327,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Cocktail-focused happy hour in Norman.",
     "url": "https://www.scratchnorman.com/",
     "patio": true
@@ -2162,6 +2334,7 @@
   {
     "n": "Tarahumara’s Mexican Cafe",
     "v": "Norman",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2169,13 +2342,13 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Mexican restaurant with happy hour in Norman.",
     "url": "https://www.tarahumarasmexicancafe.com/"
   },
   {
     "n": "The Capital Grille",
     "v": "OAK / Chisholm Creek",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2183,13 +2356,13 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Lounge-based happy hour at The Capital Grille, OAK district.",
     "url": "https://www.thecapitalgrille.com/locations/oklahoma-city/oklahoma-city/8065"
   },
   {
     "n": "Eskimo Joe’s",
     "v": "Stillwater",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2199,13 +2372,13 @@
       5,
       6
     ],
-    "t": "Varies",
     "desc": "Iconic Stillwater bar and restaurant with drink specials.",
     "url": "https://www.eskimojoes.com/"
   },
   {
     "n": "The Lokal (Yukon)",
     "v": "Yukon",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2213,7 +2386,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Cocktail and bar specials at The Lokal in Yukon.",
     "url": "https://thelokalrestaurant.com/",
     "patio": true
@@ -2221,6 +2393,7 @@
   {
     "n": "Osteria",
     "v": "Plaza District",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2228,7 +2401,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Cocktail and wine happy hour specials in the Plaza District.",
     "url": "https://osteriaokc.com/",
     "patio": true
@@ -2236,6 +2408,7 @@
   {
     "n": "McClintock Saloon & Chop House",
     "v": "Stockyards City",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2243,13 +2416,13 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Bar specials at this Stockyards City saloon.",
     "url": "https://mcclintocksaloon.com/"
   },
   {
     "n": "Two Doors Down Wine + Bistro",
     "v": "The Village",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2257,7 +2430,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Wine and cocktail happy hour specials in The Village.",
     "url": "https://twodoorsdown.biz/",
     "patio": true
@@ -2265,6 +2437,7 @@
   {
     "n": "Cheever’s Cafe",
     "v": "Uptown 23rd",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2272,13 +2445,13 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Limited bar-focused happy hour on Uptown 23rd.",
     "url": "https://cheeverscafe.com/"
   },
   {
     "n": "McNellie’s",
     "v": "Midtown",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2286,13 +2459,13 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Pub happy hour with beer and drink specials in Midtown.",
     "url": "https://www.mcnelliesokc.com/"
   },
   {
     "n": "Angry Scotsman Brewing",
     "v": "West Village",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2300,7 +2473,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Brewery happy hour with beer specials in West Village.",
     "url": "https://www.angryscotsmanbrewing.com/",
     "patio": true
@@ -2308,6 +2480,7 @@
   {
     "n": "FlashBack RetroPub",
     "v": "West Village",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2317,7 +2490,6 @@
       5,
       6
     ],
-    "t": "Varies",
     "desc": "Retro bar with drink specials in West Village.",
     "url": "https://www.flashbackretropub.com/",
     "patio": true
@@ -2325,6 +2497,7 @@
   {
     "n": "Metro Wine Bar & Bistro",
     "v": "Western Avenue",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2332,7 +2505,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Wine and bar happy hour specials on Western Avenue.",
     "url": "https://www.metrowinebar.com/",
     "patio": true
@@ -2340,6 +2512,7 @@
   {
     "n": "Rococo on Western",
     "v": "Western Avenue",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2347,7 +2520,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Limited bar-focused happy hour on Western Avenue.",
     "url": "https://loverococo.com/",
     "patio": true
@@ -2355,6 +2527,7 @@
   {
     "n": "The Hutch on Avondale",
     "v": "Western Avenue",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2362,7 +2535,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Cocktail and bar happy hour on Western Avenue.",
     "url": "https://hutchokc.com/",
     "patio": true
@@ -2370,6 +2542,7 @@
   {
     "n": "The Big Friendly Brewery & Taproom",
     "v": "Wheeler District",
+    "t": "Varies",
     "d": [
       0,
       1,
@@ -2377,7 +2550,6 @@
       3,
       4
     ],
-    "t": "Varies",
     "desc": "Brewery happy hour specials in Wheeler District.",
     "url": "https://www.thebigfriendly.beer/",
     "patio": true
@@ -2385,6 +2557,7 @@
   {
     "n": "Dust Bowl Lanes & Lounge",
     "v": "Automobile Alley",
+    "t": "4–7 PM",
     "d": [
       0,
       1,
@@ -2394,13 +2567,13 @@
       5,
       6
     ],
-    "t": "4–7 PM",
     "desc": "Daily happy hour 4–7 PM. $2 PBR pints, $5 pitchers PBR, $5 White Russians, well drinks & Moscow Mules. Friendly Fridays 4 PM–12 AM: half-off punch bowls.",
     "url": "https://www.dustbowlokc.com"
   },
   {
     "n": "Fassler Hall",
     "v": "Automobile Alley",
+    "t": "4–7 PM",
     "d": [
       0,
       1,
@@ -2410,7 +2583,6 @@
       5,
       6
     ],
-    "t": "4–7 PM",
     "desc": "Daily happy hour 4–7 PM. $4 half-liter Coors Banquet, $5 half-liter beer of the month, $5 well drinks. $7 mini bratwursts or bacon-wrapped chili cheese dogs.",
     "url": "https://fasslerhall.com",
     "patio": true
@@ -2418,6 +2590,7 @@
   {
     "n": "Goro Ramen",
     "v": "Paseo Arts District",
+    "t": "2–5 PM",
     "d": [
       0,
       1,
@@ -2425,13 +2598,13 @@
       3,
       4
     ],
-    "t": "2–5 PM",
     "desc": "Mon–Fri happy hour 2–5 PM. $5 whisky highballs. Ramen + whisky bar from 84 Hospitality.",
     "url": "https://gororamen.com"
   },
   {
     "n": "The Other Room",
     "v": "Paseo Arts District",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -2439,12 +2612,12 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Mon–Fri happy hour 3–6 PM. Half-priced beer, wine, and appetizers. Cozy speakeasy vibe."
   },
   {
     "n": "51st Street Speakeasy",
     "v": "NW OKC",
+    "t": "5–7 PM",
     "d": [
       0,
       1,
@@ -2452,13 +2625,13 @@
       3,
       4
     ],
-    "t": "5–7 PM",
     "desc": "Mon–Fri happy hour 5–7 PM. Discounted well drinks & drafts. Hidden entrance, retro speakeasy theme.",
     "patio": true
   },
   {
     "n": "Trapper's Fishcamp & Grill",
     "v": "West OKC",
+    "t": "4–6 PM",
     "d": [
       0,
       1,
@@ -2466,7 +2639,6 @@
       3,
       4
     ],
-    "t": "4–6 PM",
     "desc": "Mon–Fri happy hour 4–6 PM. $1 off draft beers, $2 off cocktails. Discounted appetizers. Cajun-style seafood.",
     "url": "https://trappersfishcamp.com",
     "patio": true
@@ -2474,6 +2646,7 @@
   {
     "n": "Sushi Neko",
     "v": "Western Avenue",
+    "t": "2–5 PM",
     "d": [
       0,
       1,
@@ -2483,13 +2656,13 @@
       5,
       6
     ],
-    "t": "2–5 PM",
     "desc": "Daily happy hour 2–5 PM. Buy 2 California rolls get 1 free. Popular sushi spot on Western Ave.",
     "url": "https://www.sushineko.com"
   },
   {
     "n": "Pearls Oyster Bar",
     "v": "Western Avenue",
+    "t": "4–6 PM",
     "d": [
       0,
       1,
@@ -2497,12 +2670,12 @@
       3,
       4
     ],
-    "t": "4–6 PM",
     "desc": "Mon–Fri happy hour 4–6 PM. $1 off draft beers, discounted oysters. Raw bar + seafood."
   },
   {
     "n": "Hopscotch Kitchen & Bar",
     "v": "NW OKC",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -2510,7 +2683,6 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Mon–Fri happy hour 3–6 PM. $5 select cocktails, $4 drafts, half-priced shareables.",
     "url": "https://hopscotchokc.com",
     "patio": true
@@ -2518,6 +2690,7 @@
   {
     "n": "Silver Bullet",
     "v": "NW OKC",
+    "t": "4–7 PM",
     "d": [
       0,
       1,
@@ -2526,12 +2699,12 @@
       4,
       5
     ],
-    "t": "4–7 PM",
     "desc": "Mon–Sat happy hour 4–7 PM. $3 domestic bottles, $4 wells. Classic dive bar with pool tables."
   },
   {
     "n": "The Sound Bar",
     "v": "Uptown 23rd",
+    "t": "4–7 PM",
     "d": [
       0,
       1,
@@ -2539,12 +2712,12 @@
       3,
       4
     ],
-    "t": "4–7 PM",
     "desc": "Mon–Fri happy hour 4–7 PM. Discounted craft cocktails & wine. Music-themed bar. Yelp top-10 happy hour."
   },
   {
     "n": "Meddys",
     "v": "Nichols Hills",
+    "t": "3–6 PM",
     "d": [
       0,
       1,
@@ -2552,7 +2725,6 @@
       3,
       4
     ],
-    "t": "3–6 PM",
     "desc": "Mon–Fri happy hour 3–6 PM. $5 house wines, $3 draft beer. Discounted hummus & pita plates. Mediterranean fast-casual.",
     "url": "https://meddys.com",
     "patio": true
@@ -2560,6 +2732,7 @@
   {
     "n": "Tiny Bubbles Wine Bar",
     "v": "Plaza District",
+    "t": "3–6 PM",
     "d": [
       1,
       2,
@@ -2567,13 +2740,13 @@
       4,
       5
     ],
-    "t": "3–6 PM",
     "desc": "Tue–Sat happy hour 3–6 PM. $2 off glasses of wine, $6 prosecco. Cheese & charcuterie specials. Cozy wine bar.",
     "patio": true
   },
   {
     "n": "The Study",
     "v": "Automobile Alley",
+    "t": "4–7 PM",
     "d": [
       0,
       1,
@@ -2581,19 +2754,18 @@
       3,
       4
     ],
-    "t": "4–7 PM",
     "desc": "Mon–Fri happy hour 4–7 PM. $5 cocktails, $3 draft beer, half-priced appetizers. Book-themed cocktail bar."
   },
   {
     "n": "City + State",
     "v": "Automobile Alley",
+    "t": "4–6 PM",
     "d": [
       1,
       2,
       3,
       4
     ],
-    "t": "4–6 PM",
     "desc": "Tue–Fri happy hour 4–6 PM. $5 wines, $4 draft specials. Open-air rooftop terrace with brick walls & downtown skyline.",
     "url": "http://cityandstateokc.com",
     "rooftop": true
@@ -2601,6 +2773,7 @@
   {
     "n": "Booger Red's",
     "v": "Stockyards City",
+    "t": "10 AM–5:30 PM",
     "d": [
       0,
       1,
@@ -2610,25 +2783,25 @@
       5,
       6
     ],
-    "t": "10 AM–5:30 PM",
     "desc": "All-day drink specials 10 AM–5:30 PM daily. Stockyards area bar."
   },
   {
     "n": "Good for a Few",
     "v": "Plaza District",
+    "t": "4 PM–12 AM",
     "d": [
       2,
       3,
       4,
       5
     ],
-    "t": "4 PM–12 AM",
     "desc": "Wed–Sat 4 PM–12 AM. Craft cocktails: Grow a Pear (mezcal/tequila/pear), French 75s, espresso martinis. Hidden speakeasy behind Fine Print bookstore.",
     "url": "https://goodforafew.com"
   },
   {
     "n": "Later Bye",
     "v": "Midtown",
+    "t": "3 PM–close",
     "d": [
       0,
       1,
@@ -2638,13 +2811,13 @@
       5,
       6
     ],
-    "t": "3 PM–close",
     "desc": "Mon–Thu 3 PM–12 AM, Fri–Sat 3 PM–1 AM, Sun 4–10 PM. Craft cocktails & NA mocktails. Anchovy butter bread, goat cheese sandwich. Cozy 31-seat bar.",
     "url": "https://www.laterbyeokc.com"
   },
   {
     "n": "Powerhouse",
     "v": "Farmers Market District",
+    "t": "4 PM+",
     "d": [
       0,
       1,
@@ -2654,7 +2827,6 @@
       5,
       6
     ],
-    "t": "4 PM+",
     "desc": "Happy hour starts at 4 PM. $3 Modelo, craft cocktails. Chile Pork Verde, Pit Beef Sandwich. Rustic bar in historic Farmers Market bldg, wraparound deck & kiva fireplaces.",
     "url": "https://www.facebook.com/powerhouseokc/",
     "patio": true
@@ -2662,17 +2834,18 @@
   {
     "n": "Bar Serra OKC",
     "v": "Automobile Alley",
+    "t": "Sunday HH + Mon specials",
     "d": [
       6,
       0
     ],
-    "t": "Sunday HH + Mon specials",
     "desc": "Sunday happy hour & Monday night specials. Wine & cocktail specials. Mediterranean-inspired cuisine. Greenhouse-inspired setting at 424 NW 10th.",
     "url": "https://barserra.com"
   },
   {
     "n": "The Great Hall",
     "v": "Downtown / City Center",
+    "t": "All day",
     "d": [
       0,
       1,
@@ -2682,7 +2855,6 @@
       5,
       6
     ],
-    "t": "All day",
     "desc": "European all-day bar in The National/First National Center. Italian Aperitivos, Spanish Gintonicos, espresso martinis. Antipasti & Neapolitan pizza.",
     "url": "https://www.greathallokc.com"
   }
