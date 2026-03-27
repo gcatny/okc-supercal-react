@@ -207,6 +207,36 @@ SOURCES = {
             'Return events for the next 90 days.'
         )
     },
+    'diamond_ballroom': {
+        'label': 'Diamond Ballroom OKC',
+        'system': (
+            'You find upcoming shows at Diamond Ballroom in Oklahoma City at '
+            '8001 S Eastern Ave. Search diamondballroomokc.com and '
+            'ticketmaster.com for all upcoming concerts, touring acts, '
+            'and special events at Diamond Ballroom OKC. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    '89th_street': {
+        'label': '89th Street Collective OKC',
+        'system': (
+            'You find upcoming shows at 89th Street Collective (also known as '
+            '89th Street OKC) in Oklahoma City. Search 89thstreet.com and '
+            'prekindle.com for all upcoming concerts, local and touring acts, '
+            'comedy shows, and special events at 89th Street Collective OKC. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'resonant_head': {
+        'label': 'Resonant Head OKC',
+        'system': (
+            'You find upcoming shows at Resonant Head in Oklahoma City. '
+            'Search resonanthead.com and their social media/Eventbrite listings '
+            'for all upcoming concerts, local acts, touring bands, and special '
+            'events at Resonant Head OKC. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
     'zoo_amp': {
         'label': 'Zoo Amphitheatre OKC',
         'system': (
