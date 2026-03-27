@@ -341,6 +341,8 @@ SOURCES = {
             'Search okcrep.org for OKC Rep productions. '
             'Search okcballet.org/performances for OKC Ballet. '
             'Search okcphil.org/events-tickets/25-26-season for OKC Philharmonic. '
+            'Search canterburyokc.com/season for Canterbury Voices choral concerts and collaborations. '
+            'Search paintedskyopera.org/season for Painted Sky Opera performances. '
             'Today is {today}. Return events for the next 180 days.'
         )
     },
@@ -867,6 +869,154 @@ SOURCES = {
             'Theatre, Criterion, Beer City Music Hall, Zoo Amphitheatre, '
             'Diamond Ballroom, 89th Street, Blue Door, Prairie OKC, '
             'Resonant Head, and all OKC music venues. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+
+    # ── NEW SOURCES ADDED ────────────────────────────────────────────────────
+
+    # Music Venues
+    'blue_door': {
+        'label': 'The Blue Door OKC',
+        'system': (
+            'You find upcoming shows at The Blue Door listening room in Oklahoma City '
+            'at 2805 N McKinley Ave. Search bluedoorokc.com for all upcoming concerts '
+            'including folk, blues, bluegrass, Americana, and acoustic performances. '
+            'The Blue Door is a BYOB intimate venue with 20+ years of bookings. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'wormy_dog': {
+        'label': 'Wormy Dog Saloon OKC',
+        'system': (
+            'You find upcoming live music events at Wormy Dog Saloon in Bricktown '
+            'Oklahoma City at 311 E Sheridan Ave. Search wormydog.com and their '
+            'social media for upcoming red dirt country, Texas country, honky-tonk, '
+            'and live music nights. They host live bands 2-3 nights per week. '
+            'Today is {today}. Return events for the next 60 days.'
+        )
+    },
+    'opolis': {
+        'label': 'Opolis Norman OK',
+        'system': (
+            'You find upcoming shows at Opolis in Norman Oklahoma near OKC. '
+            'Search opolis.us and their social media for indie rock, alternative, '
+            'punk, folk, and emerging artist shows at this intimate Norman venue. '
+            'Today is {today}. Return events for the next 60 days.'
+        )
+    },
+
+    # Comedy
+    'loony_bin': {
+        'label': 'Loony Bin Comedy Club OKC',
+        'system': (
+            'You find upcoming comedy shows at Loony Bin Comedy Club in Oklahoma City '
+            'at 8503 N Rockwell Ave. Search okc.loonybincomedy.com for all upcoming '
+            'stand-up comedy shows including nationally touring headliners, featured '
+            'acts, and special events. Include show times and ticket links. '
+            'Today is {today}. Return events for the next 60 days.'
+        )
+    },
+    'okc_improv': {
+        'label': 'OKC Improv Comedy',
+        'system': (
+            'You find upcoming comedy and improv shows at OKC Improv in Oklahoma City. '
+            'Search okcimprov.com for upcoming improv performances, stand-up shows, '
+            'sketch comedy, open mics, workshops, and special comedy events. '
+            'Today is {today}. Return events for the next 60 days.'
+        )
+    },
+
+    # Neighborhood Districts
+    '39th_street_district': {
+        'label': '39th Street District OKC (LGBTQ+)',
+        'system': (
+            'You find upcoming events in OKC\'s 39th Street District, the heart of '
+            'Oklahoma City\'s LGBTQ+ community. Search 39thstreetdistrict.com/events '
+            'for drag shows, themed nights, fundraisers, art events, Pride-related '
+            'events, and community gatherings at Angles, The Boom, Phoenix Rising, '
+            'Frankie\'s OKC, Apothecary 39, and other district venues. '
+            'Also check for Pride on 39th (June 5-7, 2026), Pride parade, and '
+            'Pride After Dark events. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'uptown23rd': {
+        'label': 'Uptown 23rd District OKC',
+        'system': (
+            'You find upcoming events in the Uptown 23rd District of Oklahoma City. '
+            'Search uptown23rd.com/events for all district events including '
+            'Cruisin\' 23rd (Route 66 Centennial celebration), Uptown Uncorked, '
+            'Beats & Bread, Uptown Outside concerts, block parties, pop-up markets, '
+            'and community happenings along NW 23rd Street. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'stockyards_city': {
+        'label': 'Stockyards City OKC',
+        'system': (
+            'You find upcoming events in Stockyards City in Oklahoma City. '
+            'Search stockyardscity.org and visitokc.com/districts/stockyards-city '
+            'for rodeo events, Western heritage events, the Stockyards Stampede, '
+            'live country music, cattle auctions open to the public, restaurant '
+            'and retail events, and special community happenings in Oklahoma City\'s '
+            'historic Stockyards City district. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+
+    # Museums
+    'okc_memorial': {
+        'label': 'OKC National Memorial & Museum',
+        'system': (
+            'You find upcoming public programs and events at the Oklahoma City '
+            'National Memorial & Museum at 620 N Harvey Ave. '
+            'Search oklahomacitynationalmemorial.org/events for public lectures, '
+            'special exhibitions, commemorative observances including the April 19th '
+            'remembrance ceremony, educational programs, film screenings, and '
+            'fundraising events. '
+            'Today is {today}. Return events for the next 180 days.'
+        )
+    },
+    'banjo_museum': {
+        'label': 'American Banjo Museum OKC',
+        'system': (
+            'You find upcoming events at the American Banjo Museum in downtown '
+            'Oklahoma City at 9 E Sheridan Ave. Search americanbanjomuseum.com/events '
+            'for live banjo concerts, bluegrass performances, exhibition openings, '
+            'fundraising galas, and special museum programs. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+
+    # Culinary / Food Experiences
+    'tasting_room_okc': {
+        'label': 'The Tasting Room OKC',
+        'system': (
+            'You find upcoming culinary and wine events at The Tasting Room by Chef '
+            'Kurt Fleischfresser in Oklahoma City. Search tastingroomokc.com for '
+            'wine dinners, seasonal tasting menus, the Spring Wine Market, crawfish '
+            'boil, winemaker dinners, and special chef\'s table events. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'chef_dio': {
+        'label': "Chef Dio's Kitchen OKC",
+        'system': (
+            'You find upcoming cooking classes and culinary events at Chef Dio\'s '
+            'Kitchen in Oklahoma City. Search chefdioskitchen.com for cooking '
+            'classes, wine pairing dinners, winery guest events, date night classes, '
+            'corporate cooking events, and special culinary experiences. '
+            'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'intl_pantry': {
+        'label': 'The International Pantry OKC',
+        'system': (
+            'You find upcoming cooking classes and culinary events at The International '
+            'Pantry in Oklahoma City. Search theinternationalpantry.com for '
+            'observational cooking classes, "dinner and a show" events, international '
+            'cuisine classes, and special culinary programs. '
             'Today is {today}. Return events for the next 90 days.'
         )
     },
