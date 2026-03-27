@@ -64,12 +64,15 @@ JSON_INSTRUCTION = (
     "culture|running|civic|industry|convention|volunteer|happyhour|fundraiser|fashion|farmersmarket), "
     "confirmed (true/false), source (string), "
     "tickets (URL string or empty string), free (true/false), "
+    "image (URL string — a direct link to a photo for this event: the official event poster, "
+    "venue photo, or artist/performer photo found on the event page or venue website; "
+    "use an empty string if no suitable image is found; do NOT use placeholder or stock image sites), "
     "district (string — use one of: Downtown / City Center, Bricktown, Midtown, "
     "Plaza District, Paseo Arts District, Automobile Alley, Deep Deuce, "
     "Uptown 23rd, Western Avenue, Classen Curve / OAK, Film Row / West Village, "
     "Adventure District, Boathouse District, Capitol Hill, Stockyards City, "
     "Asian District, Wheeler District, 39th Street District, East End District, "
-    "State Fair Park, Edmond, Norman, Stillwater, Tulsa, or Various). "
+    "State Fair Park, Edmond, Norman, Guthrie, Pryor, Stillwater, Tulsa, or Various). "
     "Only include events with confirmed specific dates. "
     "Return array starting with [ and ending with ]. No other text."
 )
@@ -1018,6 +1021,21 @@ SOURCES = {
             'observational cooking classes, "dinner and a show" events, international '
             'cuisine classes, and special culinary programs. '
             'Today is {today}. Return events for the next 90 days.'
+        )
+    },
+    'guthrie_ok': {
+        'label': 'Guthrie Oklahoma Events',
+        'system': (
+            'You find upcoming events in Guthrie, Oklahoma — Oklahoma\'s first '
+            'territorial capital, about 30 miles north of OKC. '
+            'Search guthrieok.com/upcoming-events for the city events calendar. '
+            'Search lazye.com for Lazy E Arena rodeo, equestrian, and concert events '
+            'at 9600 Lazy E Dr, Guthrie OK. '
+            'Search guthrierenfair.com for the Guthrie Renaissance Festival. '
+            'Search oibf.com for the Oklahoma International Bluegrass Festival (October, Guthrie). '
+            'Search guthriechamber.com for Greater Guthrie Chamber of Commerce events. '
+            'Use district "Guthrie" for all events. '
+            'Today is {today}. Return events for the next 180 days.'
         )
     },
 }
