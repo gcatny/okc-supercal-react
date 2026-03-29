@@ -1,20 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { CATEGORY_LABELS, CATEGORY_COLORS } from '../data/categories';
 import { CATEGORY_IMAGES } from '../data/categoryImages';
+import { getVenueImage } from '../data/venueImages';
 import { buildGCalUrl, voteKey } from '../utils/eventUtils';
 
 function EventHero({ event }) {
-  const fallback = CATEGORY_IMAGES[event.cat] || CATEGORY_IMAGES['fest'];
-  // Use event-specific image if present, otherwise the category fallback photo
-  const src = event.image || fallback.url;
-  const [imgSrc, setImgSrc] = useState(src);
+  const catFallback = CATEGORY_IMAGES[event.cat] || CATEGORY_IMAGES['fest'];
+  // Fallback chain: event image → venue image → category image
+  const bestSrc = event.image || getVenueImage(event.venue) || catFallback.url;
+  const [imgSrc, setImgSrc] = useState(bestSrc);
   const [usedGradient, setUsedGradient] = useState(false);
 
-  // If the event image changes (different event clicked), reset state
+  // Reset when a different event is clicked
   useEffect(() => {
-    setImgSrc(event.image || fallback.url);
+    const newSrc = event.image || getVenueImage(event.venue) || catFallback.url;
+    setImgSrc(newSrc);
     setUsedGradient(false);
-  }, [event.image, event.cat]);
+  }, [event.image, event.venue, event.cat]);
 
   if (usedGradient) {
     // Last resort: colored gradient + emoji
@@ -36,11 +38,10 @@ function EventHero({ event }) {
         alt={event.name}
         className="detail-hero-img"
         onError={() => {
-          // If event-specific image fails, try the category fallback photo
-          if (imgSrc !== fallback.url) {
-            setImgSrc(fallback.url);
+          // Step down the fallback chain on each error
+          if (imgSrc !== catFallback.url) {
+            setImgSrc(catFallback.url);
           } else {
-            // Category photo also failed — use gradient
             setUsedGradient(true);
           }
         }}
