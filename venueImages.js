@@ -30,7 +30,7 @@ export const VENUE_IMAGES = [
   },
   {
     match: ['civic center music hall'],
-    url: 'https://www.okcciviccenter.com/assets/img/C7-1800x625-22fd1a9fff.jpg',
+    url: 'https://lh3.googleusercontent.com/d/178LqOKUgEICUtHJ96rCS7YALzK1Ti5KF',
   },
   {
     match: ['chickasaw bricktown ballpark', 'bricktown ballpark'],
@@ -104,7 +104,7 @@ export const VENUE_IMAGES = [
   },
   {
     match: ['oklahoma history center'],
-    url: 'https://www.okhistory.org/images/ohc-exterior.jpg',
+    url: 'https://lh3.googleusercontent.com/d/13Eiyt5zgya9HjQuF_Erk71bszKUSlYdz',
   },
 
   // ── Comedy ──────────────────────────────────────────────────────────────────
@@ -114,11 +114,7 @@ export const VENUE_IMAGES = [
   },
   {
     match: ['okc improv'],
-    url: 'https://static.wixstatic.com/media/a63999_946036416d7a401a93eeeb327a1397dbf000.jpg/v1/fill/w_1143,h_500,al_c,q_85,usm_0.33_1.00_0.00,enc_avif,quality_auto/a63999_946036416d7a401a93eeeb327a1397dbf000.jpg',
-  },
-  {
-    match: ['loony bin'],
-    url: '', // still needs a photo
+    url: 'https://lh3.googleusercontent.com/d/1KQaqwym2IJ_KByWTwGI-Y8ct0-rGCoEe',
   },
 
   // ── Parks & Outdoor ─────────────────────────────────────────────────────────
@@ -131,8 +127,8 @@ export const VENUE_IMAGES = [
     url: 'https://myriadgardens.org/wp-content/uploads/Tulip-Fest-Cover-768x432.jpg',
   },
   {
-    match: ['oak heartwood', 'oakokc'],
-    url: 'https://www.oakokc.com/wp-content/uploads/2025/01/Lively-Tapestry-OAK-Public_Space-CloudPuncher-PinkWall.jpg',
+    match: ['oak heartwood', 'oakokc', 'classen curve'],
+    url: 'https://lh3.googleusercontent.com/d/1HQEwbx5Jx7fNpXgE5nD8RdjjQPY8wdso',
   },
   {
     match: ['riversport'],
@@ -146,7 +142,7 @@ export const VENUE_IMAGES = [
   },
   {
     match: ['oklahoma city zoo', 'okc zoo'],
-    url: 'https://www.okczoo.org/assets/2294/pasted_plazascreen_1976x1042_closed_weather_winter25-01_(1).png',
+    url: 'https://lh3.googleusercontent.com/d/1_8YZNKui8JAIbZmShDSfqw0mzFosplfT',
   },
   {
     match: ['science museum oklahoma', 'science museum ok'],
@@ -160,7 +156,7 @@ export const VENUE_IMAGES = [
   },
   {
     match: ['sur la table'],
-    url: '', // still needs a photo
+    url: 'https://lh3.googleusercontent.com/d/14xnDtT3UCXKCvmQTST8KrTZVtAKSyZAn',
   },
 
   // ── Districts ───────────────────────────────────────────────────────────────
@@ -170,13 +166,13 @@ export const VENUE_IMAGES = [
   },
   {
     match: ['paseo arts district', 'the paseo'],
-    url: '', // still needs a photo (site photo was a GIF)
+    url: 'https://lh3.googleusercontent.com/d/1afAvEPjkS9gRG_HqwIJs4MTUZdQz8fKW',
   },
 
   // ── Nonprofit & Community ───────────────────────────────────────────────────
   {
     match: ['regional food bank'],
-    url: 'https://www.regionalfoodbank.org/wp-content/uploads/2026/02/HP_1102x359_fboka_february_cultivation_sr_meals-art-only.jpg',
+    url: 'https://lh3.googleusercontent.com/d/1lEN2lpkWQjhyrQ2Wa0rB9jY4gjvxPTjT',
   },
   {
     match: ['habitat for humanity', 'helpmyhabitat'],
